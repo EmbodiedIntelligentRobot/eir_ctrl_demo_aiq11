@@ -1,0 +1,105 @@
+/**/main_controller:
+  ros__parameters:
+    # AIQ11 Pro 29-DoF mimic policy (legs 12 + torso 3 + arms 7+7; neck passive, not in policy).
+    RL_MIMIC_E_profile_id: "mimic_e"
+    RL_MIMIC_E_policy_joint_layout: "aiq11_pro_29"
+    # 0911 Dance13 Pro，0910动作数据，reward_v2，iter13000。
+    RL_MIMIC_E_policy_path: "config/mimic/mimic_e/pro/policy_dance13_pro_0911_iter13000.pt"
+    RL_MIMIC_E_motion_file: "config/mimic/mimic_e/pro/dance13_pro_0911.txt"
+
+    RL_MIMIC_E_ankle_vel_mask: [true, true]
+    RL_MIMIC_E_output_mode: "HYBRID_MODE"
+    RL_MIMIC_E_hybrid_leg4_motor_kd: 5.0
+    RL_MIMIC_E_hybrid_leg56_motor_kd: 3.0
+    RL_MIMIC_E_hybrid_torso1_motor_kd: 4.0
+    RL_MIMIC_E_hybrid_torso23_motor_kd: 4.0
+    RL_MIMIC_E_jit_kd: [
+      4.0, 5.0, 3.0, 4.0, 0.0, 0.0,
+      4.0, 5.0, 3.0, 4.0, 0.0, 0.0,
+      0.0, 0.0, 0.0,
+      2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
+      2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0
+    ]
+    RL_MIMIC_E_ankle_kd_map: false
+    RL_MIMIC_E_ankle_kd_mode: "ZERO_CROSS"
+    RL_MIMIC_E_ankle_kd_wp: 1.0
+    RL_MIMIC_E_ankle_kd_wr: 1.0
+    RL_MIMIC_E_ankle_kd_wc: 1.0
+    RL_MIMIC_E_ankle_kd_fb: 3.0
+
+    RL_MIMIC_E_motion_loop: false
+    RL_MIMIC_E_warm_up_steps: 5
+    RL_MIMIC_E_first_frame_hold_sec: 2.0
+    RL_MIMIC_E_gain_transition:
+      duration: 0.15
+      kp_start_ratio: 1.0
+      kd_start_ratio: 1.0
+    RL_MIMIC_E_ankle_hold_before_history: true
+
+    # Gravity observation contract: 166 values/frame * 4 frames = 664.
+    RL_MIMIC_E_obs_dim: 166
+    RL_MIMIC_E_policy_input_dim: 664
+    RL_MIMIC_E_obs_his_length: 4
+    RL_MIMIC_E_obs_flatten: true
+    RL_MIMIC_E_obs_history_layout: "term_major_oldest_to_newest"
+    RL_MIMIC_E_obs_history_init: "repeat_first_frame"
+    RL_MIMIC_E_obs_history_groups: [
+      "motion_joint_pos+motion_joint_vel",
+      "motion_anchor_ori_b",
+      "base_projected_gravity_b",
+      "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b",
+      "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+
+    RL_MIMIC_E_action_dim: 29
+    RL_MIMIC_E_action_his_length: 1
+    RL_MIMIC_E_step_dt: 0.02
+
+    # WBC/Pinocchio order: legs 12, torso 3, arms 7+7.
+    RL_MIMIC_E_default_jit_pos: [
+      -0.2365, 0.0, 0.0, 0.463, -0.2664, 0.0,
+      -0.2365, 0.0, 0.0, 0.463, -0.2664, 0.0,
+      0.0, 0.0, 0.0,
+      0.3, 0.0, 0.0, -0.89, 0.0, 0.0, 0.0,
+      0.3, 0.0, 0.0, -0.89, 0.0, 0.0, 0.0
+    ]
+    RL_MIMIC_E_jit_kp: [
+      150.0, 100.0, 100.0, 150.0, 35.0, 20.0,
+      150.0, 100.0, 100.0, 150.0, 35.0, 20.0,
+      100.0, 80.0, 80.0,
+      30.0, 25.0, 25.0, 25.0, 25.0, 15.0, 15.0,
+      30.0, 25.0, 25.0, 25.0, 25.0, 15.0, 15.0
+    ]
+
+    RL_MIMIC_E_obs_terms: [
+      "motion_joint_pos", "motion_joint_vel", "motion_anchor_ori_b",
+      "base_projected_gravity_b", "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b", "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+    RL_MIMIC_E_obs_term_dims: [29, 29, 6, 3, 3, 3, 3, 3, 29, 29, 29]
+
+    RL_MIMIC_E_obs_cfg:
+      motion_joint_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_joint_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_anchor_ori_b: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      omega: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      last_action: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+
+    RL_MIMIC_E_action_cfg:
+      jit_pos: {clip_range: [-8.0, 8.0]}
+    RL_MIMIC_E_act_scales: [
+      0.217, 0.325, 0.225, 0.217, 0.250, 0.250,
+      0.217, 0.325, 0.225, 0.217, 0.250, 0.250,
+      0.249, 0.234, 0.234,
+      0.583, 0.360, 0.360, 0.360, 0.360, 0.200, 0.200,
+      0.583, 0.360, 0.360, 0.360, 0.360, 0.200, 0.200
+    ]

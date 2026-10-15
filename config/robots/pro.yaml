@@ -1,0 +1,463 @@
+identity: pro
+# Quaternion w,x,y,z; IMU vectors -> base frame.
+base_from_imu: [1.0, 0.0, 0.0, 0.0]
+# Simulation-only open hand hold; slots 5/11 are reserved. Not part of RL actions.
+simulation_hand:
+  joint_names: [l_fg1_1, l_fg2_0, l_fg2_1, l_fg3_0, l_fg3_1, "",
+                r_fg1_1, r_fg2_0, r_fg2_1, r_fg3_0, r_fg3_1, ""]
+  coupling_csv: ../../../../sdk/share/eir_mujoco/aiq11_pro/three_finger_four_bar.csv
+  couplings:
+    - {curve: main, active_joint: l_fg1_1, passive_joint: l_fg1_2}
+    - {curve: secondary, active_joint: l_fg2_1, passive_joint: l_fg2_2}
+    - {curve: secondary, active_joint: l_fg3_1, passive_joint: l_fg3_2}
+    - {curve: main, active_joint: r_fg1_1, passive_joint: r_fg1_2}
+    - {curve: secondary, active_joint: r_fg2_1, passive_joint: r_fg2_2}
+    - {curve: secondary, active_joint: r_fg3_1, passive_joint: r_fg3_2}
+  hold_position: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] # percent closure
+  kp: 20.0
+  kd: 1.0
+  torque_limits: [1.39, 1.39] # joint-side Nm; also limited by MJCF
+# Pure C++ sequence; normalized closure, independent of RL; runs in READY and policies.
+hand_control:
+  enabled: true
+  durations: [0.5, 0.5, 0.5] # open -> main -> secondary
+  open_position: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  main_position: [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+  closed_position: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+  max_velocity: 2.0 # closure per second, applies to sequences AND offline trajectories
+  dt_cap: 0.01
+  kp: 20.0
+  kd: 1.0
+joint_names:
+- l_leg_1
+- l_leg_2
+- l_leg_3
+- l_leg_4
+- l_leg_5
+- l_leg_6
+- r_leg_1
+- r_leg_2
+- r_leg_3
+- r_leg_4
+- r_leg_5
+- r_leg_6
+- torso_1
+- torso_2
+- torso_3
+- l_arm_1
+- l_arm_2
+- l_arm_3
+- l_arm_4
+- l_arm_5
+- l_arm_6
+- l_arm_7
+- r_arm_1
+- r_arm_2
+- r_arm_3
+- r_arm_4
+- r_arm_5
+- r_arm_6
+- r_arm_7
+- neck_1
+- neck_2
+- neck_3
+motor_names:
+- l_leg_1
+- l_leg_2
+- l_leg_3
+- l_leg_4
+- l_leg_41
+- l_leg_43
+- r_leg_1
+- r_leg_2
+- r_leg_3
+- r_leg_4
+- r_leg_41
+- r_leg_43
+- torso_1
+- torso_31
+- torso_33
+- l_arm_1
+- l_arm_2
+- l_arm_3
+- l_arm_4
+- l_arm_5
+- l_arm_51
+- l_arm_7
+- r_arm_1
+- r_arm_2
+- r_arm_3
+- r_arm_4
+- r_arm_5
+- r_arm_51
+- r_arm_7
+- neck_1
+- neck_11
+- neck_13
+ready:
+- -0.17156658
+- 0.05101590
+- 0.16980055
+- 0.43576749
+- -0.29851854
+- 0.01907561
+- -0.17497758
+- -0.05380961
+- -0.16779319
+- 0.43621180
+- -0.29492938
+- -0.01577146
+- -0.00002481
+- -0.00606755
+- 0.00119628
+- 0.29560287
+- 0.02324323
+- 0.00602998
+- -0.91761967
+- 0.0007
+- 0.0004
+- 0.0046
+- 0.29590558
+- -0.02307437
+- -0.00584453
+- -0.91735470
+- 0.0005
+- -0.0001
+- 0.0047
+- 0
+- 0
+- 0
+ready_kp:
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 300.0
+- 50.0
+- 50.0
+- 50.0
+- 50.0
+- 30.0
+- 30.0
+- 30.0
+- 50.0
+- 50.0
+- 50.0
+- 50.0
+- 30.0
+- 30.0
+- 30.0
+- 20
+- 20
+- 20
+ready_kd:
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 5.0
+- 5.0
+- 5.0
+- 2.0
+- 2.0
+- 2.0
+- 2.0
+- 1.0
+- 1.0
+- 1.0
+- 2.0
+- 2.0
+- 2.0
+- 2.0
+- 1.0
+- 1.0
+- 1.0
+- 2
+- 2
+- 2
+lower:
+- -1.84
+- -0.024
+- -1.566
+- -0.18
+- -0.98
+- -0.361
+- -1.84
+- -1.51
+- -1.566
+- -0.18
+- -0.98
+- -0.361
+- -1.83
+- -0.28
+- -0.22
+- -3.142
+- -0.209
+- -2.269
+- -2.356
+- -2.269
+- -0.785
+- -1.047
+- -3.142
+- -3.281
+- -2.269
+- -2.356
+- -2.269
+- -0.785
+- -1.047
+- -0.5
+- -0.5
+- -0.5
+upper:
+- 0.96
+- 1.51
+- 1.566
+- 2.18
+- 0.42
+- 0.361
+- 1.0
+- 0.024
+- 1.566
+- 2.18
+- 0.42
+- 0.361
+- 1.83
+- 0.28
+- 0.49
+- 1.883
+- 3.281
+- 2.269
+- 0.175
+- 2.269
+- 0.785
+- 1.047
+- 1.883
+- 0.209
+- 2.269
+- 0.175
+- 2.269
+- 0.785
+- 1.047
+- 0.5
+- 0.5
+- 0.5
+hold:
+- -0.18
+- 0.05
+- 0.17
+- 0.44
+- -0.2583
+- 0.02781
+- -0.18
+- -0.05
+- -0.17
+- 0.44
+- -0.2583
+- -0.02781
+- 0.0
+- 0.0
+- 0.0
+- 0.3
+- 0.0
+- 0.0
+- -0.89
+- 0.0
+- 0.0
+- 0.0
+- 0.3
+- 0.0
+- 0.0
+- -0.89
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+hold_kp:
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 25.0
+- 20.0
+- 20.0
+- 20.0
+hold_kd:
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 2.0
+- 2.0
+- 2.0
+- 1.0
+- 1.0
+- 1.0
+- 1.0
+- 2.0
+- 2.0
+- 2.0
+- 2.0
+- 2.0
+- 2.0
+# Keep policy joint damping; add 1.0 Nm*s/rad at each waist motor in RL modes.
+motor_kd:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 1.0 # torso_31: additional motor damping in RL modes
+- 1.0 # torso_33: additional motor damping in RL modes
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+torque_limit:
+- 75.0
+- 75.0
+- 75.0
+- 75.0
+- 75.0
+- 75.0
+- 75.0
+- 75.0
+- 75.0
+- 75.0
+- 75.0
+- 75.0
+- 50.0
+- 50.0
+- 50.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 36.0
+- 12.0
+- 12.0
+- 12.0
+ready_seconds: 3.0
+settle_seconds: 0.2
+ready_timeout: 10.0
+ready_error: 0.1
+ready_velocity: 0.25
+torque_indices:
+- l_leg_4
+- l_leg_5
+- l_leg_6
+- r_leg_4
+- r_leg_5
+- r_leg_6
+- torso_1
+- torso_2
+- torso_3
+pairs:
+- kind: left_ankle
+  resources: ../../../../sdk/share/eir_closed_kinematics/aiq11_ankle
+  joints:
+  - l_leg_5
+  - l_leg_6
+- kind: right_ankle
+  resources: ../../../../sdk/share/eir_closed_kinematics/aiq11_ankle
+  joints:
+  - r_leg_5
+  - r_leg_6
+- kind: waist
+  resources: ../../../../sdk/share/eir_closed_kinematics/aiq11_waist
+  joints:
+  - torso_3
+  - torso_2
+- kind: neck
+  resources: ../../../../sdk/share/eir_closed_kinematics/aiq11_neck
+  joints:
+  - neck_3
+  - neck_2

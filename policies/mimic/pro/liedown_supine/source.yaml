@@ -1,0 +1,117 @@
+/**/main_controller:
+  ros__parameters:
+    # AIQ11 Pro 29-DoF get-up policy (legs 12 + torso 3 + arms 7+7).
+    RL_LIEDOWN_SUPINE_profile_id: "liedown_supine"
+    RL_LIEDOWN_SUPINE_configuration_required: true
+    RL_LIEDOWN_SUPINE_policy_joint_layout: "aiq11_pro_29"
+    RL_LIEDOWN_SUPINE_policy_path: "config/mimic/liedown_supine/pro/policy_tangxia_pro_1008.pt"
+    RL_LIEDOWN_SUPINE_motion_file: "config/mimic/liedown_supine/pro/tangxia_pro_1008.txt"
+
+
+    RL_LIEDOWN_SUPINE_motion_loop: false
+    RL_LIEDOWN_SUPINE_warm_up_steps: 5
+    RL_LIEDOWN_SUPINE_first_frame_hold_sec: 0.0
+
+    RL_LIEDOWN_SUPINE_heading_alignment: "PROJECTED_BODY_AXIS"
+    RL_LIEDOWN_SUPINE_heading_axis: "AUTO"
+    RL_LIEDOWN_SUPINE_alignment_max_angular_velocity: 0.15
+    RL_LIEDOWN_SUPINE_alignment_min_horizontal_projection: 0.5
+    RL_LIEDOWN_SUPINE_alignment_max_residual_angle: 0.523599
+
+    RL_LIEDOWN_SUPINE_gain_transition:
+      duration: 0.15
+      kp_start_ratio: 1.0
+      kd_start_ratio: 1.0
+    RL_LIEDOWN_SUPINE_ankle_hold_before_history: true
+
+    # 166 values/frame, four-frame term-major history: 664 values.
+    RL_LIEDOWN_SUPINE_obs_dim: 166
+    RL_LIEDOWN_SUPINE_policy_input_dim: 664
+    RL_LIEDOWN_SUPINE_obs_his_length: 4
+    RL_LIEDOWN_SUPINE_obs_flatten: true
+    RL_LIEDOWN_SUPINE_obs_history_layout: "term_major_oldest_to_newest"
+    RL_LIEDOWN_SUPINE_obs_history_init: "repeat_first_frame"
+    RL_LIEDOWN_SUPINE_obs_history_groups: [
+      "motion_joint_pos+motion_joint_vel",
+      "motion_anchor_ori_b",
+      "base_projected_gravity_b",
+      "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b",
+      "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+
+    RL_LIEDOWN_SUPINE_action_dim: 29
+    RL_LIEDOWN_SUPINE_action_his_length: 1
+    RL_LIEDOWN_SUPINE_step_dt: 0.02
+
+    RL_LIEDOWN_SUPINE_output_mode: "HYBRID_PRO"
+    RL_LIEDOWN_SUPINE_hybrid_leg4_motor_kd: 0.0
+    RL_LIEDOWN_SUPINE_hybrid_leg56_motor_kd: 2.0
+    RL_LIEDOWN_SUPINE_hybrid_torso1_motor_kd: 3.0
+    RL_LIEDOWN_SUPINE_hybrid_torso23_motor_kd: 5.0
+
+    RL_LIEDOWN_SUPINE_ankle_kd_map: true
+    RL_LIEDOWN_SUPINE_ankle_kd_mode: "ZERO_CROSS"
+    RL_LIEDOWN_SUPINE_ankle_kd_wp: 1.0
+    RL_LIEDOWN_SUPINE_ankle_kd_wr: 1.0
+    RL_LIEDOWN_SUPINE_ankle_kd_wc: 1.0
+    RL_LIEDOWN_SUPINE_ankle_kd_fb: 3.0
+
+    # WBC/Pinocchio order: legs 12, torso 3, left arm 7, right arm 7.
+    RL_LIEDOWN_SUPINE_default_jit_pos: [
+      -0.1965, 0.0, 0.0, 0.4630, -0.2664, 0.0,
+      -0.1965, 0.0, 0.0, 0.4630, -0.2664, 0.0,
+       0.0,    0.0, 0.0,
+       0.3,    0.0, 0.0, -0.89, 0.0, 0.0, 0.0,
+       0.3,    0.0, 0.0, -0.89, 0.0, 0.0, 0.0
+    ]
+
+    RL_LIEDOWN_SUPINE_jit_kp: [
+      100.0, 100.0, 80.0, 100.0, 25.0, 20.0,
+      100.0, 100.0, 80.0, 100.0, 25.0, 20.0,
+      100.0, 80.0, 80.0,
+      30.0, 25.0, 25.0, 25.0, 25.0, 15.0, 15.0,
+      30.0, 25.0, 25.0, 25.0, 25.0, 15.0, 15.0
+    ]
+
+    RL_LIEDOWN_SUPINE_jit_kd: [
+      4.0, 5.0, 3.0, 4.0, 0.0, 0.0,
+      4.0, 5.0, 3.0, 4.0, 0.0, 0.0,
+      0.0, 0.0, 0.0,
+      2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
+      2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0
+    ]
+
+    RL_LIEDOWN_SUPINE_obs_terms: [
+      "motion_joint_pos", "motion_joint_vel", "motion_anchor_ori_b",
+      "base_projected_gravity_b", "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b", "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+    RL_LIEDOWN_SUPINE_ankle_vel_mask: [true, true]
+    RL_LIEDOWN_SUPINE_obs_term_dims: [29, 29, 6, 3, 3, 3, 3, 3, 29, 29, 29]
+
+    RL_LIEDOWN_SUPINE_obs_cfg:
+      motion_joint_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_joint_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_anchor_ori_b: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      omega: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      last_action: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+
+    RL_LIEDOWN_SUPINE_action_cfg:
+      jit_pos: {clip_range: [-8.0, 8.0]}
+
+    RL_LIEDOWN_SUPINE_act_scales: [
+      0.21666666666666667, 0.325, 0.225, 0.21666666666666667, 0.25, 0.25,
+      0.21666666666666667, 0.325, 0.225, 0.21666666666666667, 0.25, 0.25,
+      0.249375, 0.234375, 0.234375,
+      0.5833333333333334, 0.36, 0.36, 0.36, 0.36, 0.2, 0.2,
+      0.5833333333333334, 0.36, 0.36, 0.36, 0.36, 0.2, 0.2
+    ]

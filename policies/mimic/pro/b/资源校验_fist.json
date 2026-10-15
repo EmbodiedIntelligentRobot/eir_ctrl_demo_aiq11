@@ -1,0 +1,43 @@
+{
+  "source_archive": "运动版舞蹈&不带假爪交互版舞蹈.zip",
+  "archive_sha256": "4697ea411b4e394dff6bfa6c94842b3af52e8b45c5300be33e49c3654174a5e8",
+  "source_directory": "mimic_b/pro",
+  "source_model": "policy_dance7_1010.pt",
+  "source_motion": "dance7_1009.txt",
+  "robot": "pro",
+  "mode": 31,
+  "frames": 2147,
+  "input": [
+    1,
+    664
+  ],
+  "output": [
+    1,
+    29
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 3.0517578125e-05,
+  "sha256": {
+    "policy_fist.pt": "ee1a7b59e7d621a190b5079cdc7da0ee388825bfc60452660faba5f668aeddc8",
+    "policy_fist.onnx": "6484e5db8ecff085c8c6f5b30b723e3a040c5a2fa026a031574a5370b7693a6d",
+    "motion_fist.csv": "3b315da4903403fd879d28b8874483a735f059c93366d359d65a342bcd5131ef",
+    "source_fist.yaml": "792ee24b69281e789bfc5440af27e211bbd073b44ba9023ee09ba130cf6b9f4b"
+  },
+  "resource_changes": {
+    "source.yaml": "replaced",
+    "policy.pt": "replaced",
+    "motion.csv": "replaced",
+    "policy.onnx": "exported"
+  },
+  "config_changed_fields": [
+    "scales",
+    "kp",
+    "kd",
+    "motor_kd",
+    "output_mode"
+  ],
+  "neck_gains": "source has no neck gains; existing tracked_kp=20/kd=2",
+  "conversion": "Source numeric values preserved; gravity clips follow normalized gravity; gain ratios=1, shared policy transition=0.15s; history initialized with first frame.",
+  "variant": "fist"
+}

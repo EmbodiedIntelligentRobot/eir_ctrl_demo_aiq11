@@ -1,0 +1,166 @@
+{
+  "task": "AIQ11Pro-Parkour",
+  "run_name": "lip_perception_latest_model_fixed_feet_push_4096",
+  "checkpoint": "model_14500.pt",
+  "iteration": 14500,
+  "checkpoint_sha256": "bf20bffec0204977b8b46f3c4f1a513f4786885568fb1ed47dab61880377bc5b",
+  "exported_at_utc": "2026-10-11T08:47:00.814186+00:00",
+  "policy_input_shape": [
+    1,
+    5232
+  ],
+  "policy_output_shape": [
+    1,
+    23
+  ],
+  "depth_encoder_input_shape": [
+    1,
+    8,
+    18,
+    32
+  ],
+  "depth_latent_size": 128,
+  "actor_input_shape": [
+    1,
+    752
+  ],
+  "proprioception_layout": [
+    {
+      "name": "base_ang_vel",
+      "offset": 0,
+      "size": 24,
+      "frame_width": 3,
+      "history_length": 8,
+      "scale": "0.25",
+      "clip": "null"
+    },
+    {
+      "name": "projected_gravity",
+      "offset": 24,
+      "size": 24,
+      "frame_width": 3,
+      "history_length": 8,
+      "scale": "null",
+      "clip": "null"
+    },
+    {
+      "name": "velocity_commands",
+      "offset": 48,
+      "size": 24,
+      "frame_width": 3,
+      "history_length": 8,
+      "scale": "null",
+      "clip": "null"
+    },
+    {
+      "name": "joint_pos",
+      "offset": 72,
+      "size": 184,
+      "frame_width": 23,
+      "history_length": 8,
+      "scale": "null",
+      "clip": "null"
+    },
+    {
+      "name": "joint_vel",
+      "offset": 256,
+      "size": 184,
+      "frame_width": 23,
+      "history_length": 8,
+      "scale": "0.05",
+      "clip": "null"
+    },
+    {
+      "name": "actions",
+      "offset": 440,
+      "size": 184,
+      "frame_width": 23,
+      "history_length": 8,
+      "scale": "null",
+      "clip": [
+        "-10.0",
+        "10.0"
+      ]
+    }
+  ],
+  "history_order": "oldest to newest within each observation term",
+  "depth_input": "preprocessed depth history, same pipeline as training; not raw metric images",
+  "action_joint_names": [
+    "l_leg_1",
+    "l_leg_2",
+    "l_leg_3",
+    "l_leg_4",
+    "l_leg_5",
+    "l_leg_6",
+    "r_leg_1",
+    "r_leg_2",
+    "r_leg_3",
+    "r_leg_4",
+    "r_leg_5",
+    "r_leg_6",
+    "torso_1",
+    "torso_2",
+    "torso_3",
+    "l_arm_1",
+    "l_arm_2",
+    "l_arm_3",
+    "l_arm_4",
+    "r_arm_1",
+    "r_arm_2",
+    "r_arm_3",
+    "r_arm_4"
+  ],
+  "action_config": {
+    "class_type": "isaaclab.envs.mdp.actions.joint_actions:JointPositionAction",
+    "asset_name": "robot",
+    "debug_vis": "false",
+    "clip": "null",
+    "joint_names": [
+      "l_leg_1",
+      "l_leg_2",
+      "l_leg_3",
+      "l_leg_4",
+      "l_leg_5",
+      "l_leg_6",
+      "r_leg_1",
+      "r_leg_2",
+      "r_leg_3",
+      "r_leg_4",
+      "r_leg_5",
+      "r_leg_6",
+      "torso_1",
+      "torso_2",
+      "torso_3",
+      "l_arm_1",
+      "l_arm_2",
+      "l_arm_3",
+      "l_arm_4",
+      "r_arm_1",
+      "r_arm_2",
+      "r_arm_3",
+      "r_arm_4"
+    ],
+    "scale": "0.25",
+    "offset": "0.0",
+    "preserve_order": "true",
+    "use_default_offset": "true"
+  },
+  "normalization_included": false,
+  "validation": {
+    "samples_per_graph": 21,
+    "onnx_max_absolute_error": {
+      "0-depth_encoder": 3.814697265625e-06,
+      "actor": 1.9073486328125e-05,
+      "policy": 2.288818359375e-05
+    },
+    "onnx_backend": "onnxruntime"
+  },
+  "files_sha256": {
+    "0-depth_encoder.onnx": "856c6a987bc335e9f6d5394d03bf76eb547b2317c71b2229cd149cdafcc9a9e6",
+    "0-depth_encoder.pt": "c2a8ba5f7506f91cacbc0a71510a7b5eeaa84f33dd4cbb87e5d14771c66c28da",
+    "actor.onnx": "53498e4c881774b22327b1b7643c04471ce8a43e54075437878be1b70aa67327",
+    "actor.pt": "b26e87df23ca2ab6503586c461a3f5a9c7cb2612e83eca2282586fe5ebc18154",
+    "policy.onnx": "bc87e24fcea746d87688213d2aac072800fda530acd92280f05923a182c558ad",
+    "policy.pt": "4bb55c0791795a7856ba47c6933e60513c06b13eb32ce2574bec5b91b2a763b7"
+  }
+}

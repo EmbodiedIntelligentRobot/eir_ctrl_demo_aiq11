@@ -1,0 +1,118 @@
+/**/main_controller:
+  ros__parameters:
+    # AIQ11 Pro 29-DoF prone get-up policy, trained in mjlab at 50 Hz.
+    RL_GETUP_PRONE_profile_id: "getup_prone"
+    RL_GETUP_PRONE_configuration_required: true
+    RL_GETUP_PRONE_policy_joint_layout: "aiq11_pro_29"
+    RL_GETUP_PRONE_policy_path: "config/mimic/getup_prone/pro/policy_paqi_new_pro_923.pt"
+    RL_GETUP_PRONE_motion_file: "config/mimic/getup_prone/pro/paqi_new_pro_923.txt"    
+    RL_GETUP_PRONE_motion_loop: false
+    RL_GETUP_PRONE_warm_up_steps: 5
+    RL_GETUP_PRONE_first_frame_hold_sec: 2.0
+
+    RL_GETUP_PRONE_heading_alignment: "PROJECTED_BODY_AXIS"
+    RL_GETUP_PRONE_heading_axis: "AUTO"
+    RL_GETUP_PRONE_alignment_max_angular_velocity: 0.15
+    RL_GETUP_PRONE_alignment_min_horizontal_projection: 0.5
+    RL_GETUP_PRONE_alignment_max_residual_angle: 0.523599
+
+    RL_GETUP_PRONE_gain_transition:
+      duration: 0.15
+      kp_start_ratio: 1.0
+      kd_start_ratio: 1.0
+    RL_GETUP_PRONE_ankle_hold_before_history: true
+
+    # 166 values/frame, four-frame term-major history: 664 values.
+    RL_GETUP_PRONE_obs_dim: 166
+    RL_GETUP_PRONE_policy_input_dim: 664
+    RL_GETUP_PRONE_obs_his_length: 4
+    RL_GETUP_PRONE_obs_flatten: true
+    RL_GETUP_PRONE_obs_history_layout: "term_major_oldest_to_newest"
+    RL_GETUP_PRONE_obs_history_init: "repeat_first_frame"
+    RL_GETUP_PRONE_obs_history_groups: [
+      "motion_joint_pos+motion_joint_vel",
+      "motion_anchor_ori_b",
+      "base_projected_gravity_b",
+      "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b",
+      "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+
+    RL_GETUP_PRONE_action_dim: 29
+    RL_GETUP_PRONE_action_his_length: 1
+    RL_GETUP_PRONE_step_dt: 0.02
+
+    # Torque projection keeps the training joint-space gains on coupled joints.
+    RL_GETUP_PRONE_output_mode: "HYBRID_PRO"
+    RL_GETUP_PRONE_hybrid_leg4_motor_kd: 4.0
+    RL_GETUP_PRONE_hybrid_leg56_motor_kd: 2.0
+    RL_GETUP_PRONE_hybrid_torso1_motor_kd: 3.0
+    RL_GETUP_PRONE_hybrid_torso23_motor_kd: 3.0
+
+    RL_GETUP_PRONE_ankle_kd_map: true
+    RL_GETUP_PRONE_ankle_kd_mode: "ZERO_CROSS"
+    RL_GETUP_PRONE_ankle_kd_wp: 1.0
+    RL_GETUP_PRONE_ankle_kd_wr: 1.0
+    RL_GETUP_PRONE_ankle_kd_wc: 1.0
+    RL_GETUP_PRONE_ankle_kd_fb: 3.0
+
+    # WBC/Pinocchio order: legs 12, torso 3, left arm 7, right arm 7.
+    RL_GETUP_PRONE_default_jit_pos: [
+      -0.1965, 0.0, 0.0, 0.4630, -0.2664, 0.0,
+      -0.1965, 0.0, 0.0, 0.4630, -0.2664, 0.0,
+       0.0,    0.0, 0.0,
+       0.3,    0.0, 0.0, -0.89, 0.0, 0.0, 0.0,
+       0.3,    0.0, 0.0, -0.89, 0.0, 0.0, 0.0
+    ]
+
+    RL_GETUP_PRONE_jit_kp: [
+      150.0, 120.0, 120.0, 130.0, 35.0, 20.0,
+      150.0, 120.0, 120.0, 130.0, 35.0, 20.0,
+      100.0, 80.0, 80.0,
+      30.0, 25.0, 25.0, 25.0, 35.0, 25.0, 25.0,
+      30.0, 25.0, 25.0, 25.0, 35.0, 25.0, 25.0,
+    ]
+
+    # leg_4 and torso damping are applied through the HYBRID_PRO motor-Kd fields.
+    RL_GETUP_PRONE_jit_kd: [
+      5.0, 4.0, 4.0, 0.0, 5.0, 0.5,
+      5.0, 4.0, 4.0, 0.0, 5.0, 0.5,
+      0.0, 0.0, 0.0,
+      2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
+      2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0
+    ]
+
+    RL_GETUP_PRONE_obs_terms: [
+      "motion_joint_pos", "motion_joint_vel", "motion_anchor_ori_b",
+      "base_projected_gravity_b", "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b", "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+    # Training masks leg_5 and leg_6 velocity observations on both legs.
+    RL_GETUP_PRONE_ankle_vel_mask: [true, true]
+    RL_GETUP_PRONE_obs_term_dims: [29, 29, 6, 3, 3, 3, 3, 3, 29, 29, 29]
+
+    RL_GETUP_PRONE_obs_cfg:
+      motion_joint_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_joint_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_anchor_ori_b: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      omega: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      last_action: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+
+    RL_GETUP_PRONE_action_cfg:
+      jit_pos: {clip_range: [-12.0, 12.0]}
+
+    RL_GETUP_PRONE_act_scales: [
+      0.216667, 0.270833, 0.187500, 0.250000, 0.250000, 0.250000,
+      0.216667, 0.270833, 0.187500, 0.250000, 0.250000, 0.250000,
+      0.249375, 0.234375, 0.234375,
+      0.583333, 0.360000, 0.360000, 0.360000, 0.257143, 0.120000, 0.120000,
+      0.583333, 0.360000, 0.360000, 0.360000, 0.257143, 0.120000, 0.120000,
+    ]

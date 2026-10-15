@@ -1,0 +1,41 @@
+# MotionCmd.srv
+
+# 命令分组约定：
+# - cmd < 10：实时/流式 motion stream 的执行控制命令。
+# - cmd 11～255：离线文件动作命令。声明的常量覆盖正式内置动作；运行时还可
+#   动态加载同一范围内的测试动作。合法但未加载的编号返回 ERR_MOTION_NOT_LOADED。
+
+uint8 CMD_START = 1
+uint8 CMD_STOP = 2
+uint8 CMD_PAUSE = 3
+uint8 CMD_RESUME = 4
+
+# 离线文件动作命令（cmd > 10）
+# CMD_JOF11～CMD_JOF21 使用连续编号 11～21，并分别对应 motion_11～motion_21；
+# JOF 名称后缀、motion 名称后缀和服务值必须保持一致。
+# 服务端会请求 JntOffline Planner 播放对应文件；当前控制模式必须支持 Motion Stream，
+# 但这些命令本身不限定某个具体 locomotion 模式（例如 SIT）。
+uint8 CMD_JOF11 = 11
+uint8 CMD_JOF12 = 12
+uint8 CMD_JOF13 = 13
+uint8 CMD_JOF14 = 14
+uint8 CMD_JOF15 = 15
+uint8 CMD_JOF16 = 16
+uint8 CMD_JOF17 = 17
+uint8 CMD_JOF18 = 18
+uint8 CMD_JOF19 = 19
+uint8 CMD_JOF20 = 20
+uint8 CMD_JOF21 = 21
+
+uint8 cmd
+string session_id
+
+---
+
+uint32 ERR_NONE = 0
+uint32 ERR_UNKNOWN_CMD = 1
+uint32 ERR_MOTION_NOT_LOADED = 2
+uint32 ERR_REQUEST_REJECTED = 3
+
+bool result
+uint32 err_code

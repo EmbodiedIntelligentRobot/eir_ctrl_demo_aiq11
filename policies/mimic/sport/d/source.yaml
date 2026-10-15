@@ -1,0 +1,129 @@
+/**/main_controller:
+  ros__parameters:
+    # -------------------------------------------------------------------------
+    # 策略与动作资源
+    # -------------------------------------------------------------------------
+    RL_MIMIC_D_profile_id: "mimic_d"
+    RL_MIMIC_D_policy_joint_layout: "aiq11_23"
+
+    # Dance12 组合：policy、motion 和 ankle velocity mask 必须成组切换。
+    RL_MIMIC_D_policy_path: "config/mimic/mimic_d/sport/policy_old4_728.pt"
+    RL_MIMIC_D_motion_file: "config/mimic/mimic_d/sport/old_4_newyear_aiq11.txt"
+    RL_MIMIC_D_ankle_vel_mask: [true, true]
+    # 可选模式: POS_MODE / TORQUE_MODE / HYBRID_MODE / HYBRID_PRO。
+    RL_MIMIC_D_output_mode: "HYBRID_MODE"
+    RL_MIMIC_D_hybrid_leg4_motor_kd: 0.0
+    RL_MIMIC_D_hybrid_leg56_motor_kd: 2.0
+    RL_MIMIC_D_hybrid_torso1_motor_kd: 3.0
+    RL_MIMIC_D_hybrid_torso23_motor_kd: 4.0
+    RL_MIMIC_D_jit_kd: [
+      4.0, 5.0, 3.0, 4.0, 0.0, 0.0,
+      4.0, 5.0, 3.0, 4.0, 0.0, 0.0,
+      0.0, 0.0, 0.0,
+      2.0, 2.0, 2.0, 2.0,
+      2.0, 2.0, 2.0, 2.0
+    ]
+    # 踝关节 joint Kd -> 两个驱动器独立标量 motor Kd。
+    RL_MIMIC_D_ankle_kd_map: false
+    RL_MIMIC_D_ankle_kd_mode: "ZERO_CROSS"  # ZERO_CROSS 或 SOFT_QP
+    RL_MIMIC_D_ankle_kd_wp: 1.0
+    RL_MIMIC_D_ankle_kd_wr: 1.0
+    RL_MIMIC_D_ankle_kd_wc: 1.0
+    RL_MIMIC_D_ankle_kd_fb: 3.0
+
+    # -------------------------------------------------------------------------
+    # 回放与推理时序
+    # -------------------------------------------------------------------------
+    RL_MIMIC_D_motion_loop: false
+    RL_MIMIC_D_warm_up_steps: 5
+    RL_MIMIC_D_first_frame_hold_sec: 0.0
+    RL_MIMIC_D_gain_transition:
+      duration: 0.15
+      kp_start_ratio: 1.0
+      kd_start_ratio: 1.0
+    RL_MIMIC_D_ankle_hold_before_history: true
+
+    # -------------------------------------------------------------------------
+    # 观测接口与历史
+    # -------------------------------------------------------------------------
+    # Single frame: 136, four-frame term-major history: 544.
+    RL_MIMIC_D_obs_dim: 136
+    RL_MIMIC_D_policy_input_dim: 544
+    RL_MIMIC_D_obs_his_length: 4
+    RL_MIMIC_D_obs_flatten: true
+    RL_MIMIC_D_obs_history_layout: "term_major_oldest_to_newest"
+    RL_MIMIC_D_obs_history_init: "repeat_first_frame"
+    RL_MIMIC_D_obs_history_groups: [
+      "motion_joint_pos+motion_joint_vel",
+      "motion_anchor_ori_b",
+      "base_projected_gravity_b",
+      "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b",
+      "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+
+    # -------------------------------------------------------------------------
+    # 动作接口与输出模式
+    # -------------------------------------------------------------------------
+    RL_MIMIC_D_action_dim: 23
+    RL_MIMIC_D_action_his_length: 1
+    RL_MIMIC_D_step_dt: 0.02
+
+    # -------------------------------------------------------------------------
+    # 关节参考值与增益
+    # -------------------------------------------------------------------------
+    # WBC/Pinocchio 顺序: 双腿 12、躯干 3、左臂 4、右臂 4。
+    RL_MIMIC_D_default_jit_pos: [
+      -0.1965, 0.0, 0.0, 0.463, -0.2664, 0.0,
+      -0.1965, 0.0, 0.0, 0.463, -0.2664, 0.0,
+      0.0, 0.0, 0.0,
+      0.3, 0.0, 0.0, -0.89,
+      0.3, 0.0, 0.0, -0.89
+    ]
+
+    RL_MIMIC_D_jit_kp: [
+      150.0, 100.0, 100.0, 150.0, 35.0, 20.0,
+      150.0, 100.0, 100.0, 150.0, 35.0, 20.0,
+      100.0, 80.0, 80.0,
+      30.0, 25.0, 25.0, 25.0,
+      30.0, 25.0, 25.0, 25.0
+    ]
+
+    # -------------------------------------------------------------------------
+    # 观测项
+    # -------------------------------------------------------------------------
+    RL_MIMIC_D_obs_terms: [
+      "motion_joint_pos", "motion_joint_vel", "motion_anchor_ori_b",
+      "base_projected_gravity_b", "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b", "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+    RL_MIMIC_D_obs_term_dims: [23, 23, 6, 3, 3, 3, 3, 3, 23, 23, 23]
+
+    RL_MIMIC_D_obs_cfg:
+      motion_joint_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_joint_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_anchor_ori_b: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      omega: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      last_action: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+
+    # -------------------------------------------------------------------------
+    # 动作配置与逐关节缩放
+    # -------------------------------------------------------------------------
+    RL_MIMIC_D_action_cfg:
+      jit_pos: {clip_range: [-8.0, 8.0]}
+
+    RL_MIMIC_D_act_scales: [
+      0.216667, 0.325, 0.225, 0.216667, 0.25, 0.25,
+      0.216667, 0.325, 0.225, 0.216667, 0.25, 0.25,
+      0.249375, 0.234375, 0.234375,
+      0.583333, 0.36, 0.36, 0.36,
+      0.583333, 0.36, 0.36, 0.36
+    ]

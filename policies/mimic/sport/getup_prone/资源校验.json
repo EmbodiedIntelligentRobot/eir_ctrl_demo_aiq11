@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11/getup_prone/不用手的版本",
+  "source_model": "policy_new_paqi_924.pt",
+  "source_motion": "hand_paqi_924_xiawu.txt",
+  "robot": "sport",
+  "mode": 38,
+  "frames": 885,
+  "input": [
+    1,
+    544
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 2.1457672119140625e-05,
+  "sha256": {
+    "policy.pt": "5c13b15de901403bb7a5c440a36dcb3b1004e670dde7161004fa63f487112182",
+    "policy.onnx": "a22b1e5d8414bae203fe78f51d515daf69ee739b7d8be3da2b2a82f5b1fb295d",
+    "motion.csv": "fab2e12902134cdc8fa5daf3388176f404b25df5bccca63a794d5ed38183cf55",
+    "source.yaml": "9a26e0ed141cbf4af14d4945c1bfe11dc6fc6d16362f12cc468e143177978a79"
+  },
+  "output_projection": "HYBRID_PRO",
+  "neck_gains": "no neck joints"
+}

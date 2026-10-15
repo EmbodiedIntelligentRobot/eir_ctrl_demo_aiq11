@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11_pro/squat_to_stand",
+  "source_model": "policy_dunqi_pro_917.pt",
+  "source_motion": "dunqi_pro_917.txt",
+  "robot": "pro",
+  "mode": 43,
+  "frames": 375,
+  "input": [
+    1,
+    664
+  ],
+  "output": [
+    1,
+    29
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 1.33514404296875e-05,
+  "sha256": {
+    "policy.pt": "36161a351ce366e8c1eedfc1202b5d3c2728e3677c2f73adea9e36f5f8e6c984",
+    "policy.onnx": "f3854f126c3a349dafa5322c4e6c5b208706503213e1d5ce934668c312b0fa01",
+    "motion.csv": "635caf01f84aa4c7d9a3aea32945738b0d0c830911ea13cb2aa31c702d249104",
+    "source.yaml": "e197477402011b0cfacc2869544d6884b926a19ee3717081d0706ae09003b143"
+  },
+  "output_projection": "HYBRID_MODE",
+  "neck_gains": "source provides no neck gains; application tracked_kp=20, tracked_kd=2"
+}

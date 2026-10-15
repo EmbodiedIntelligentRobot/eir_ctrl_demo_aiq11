@@ -1,0 +1,36 @@
+{
+  "source_archive": "运动版舞蹈&不带假爪交互版舞蹈.zip",
+  "archive_sha256": "4697ea411b4e394dff6bfa6c94842b3af52e8b45c5300be33e49c3654174a5e8",
+  "source_directory": "mimic_b/sport",
+  "source_model": "policy_dance7_909.pt",
+  "source_motion": "dance7_909.txt",
+  "robot": "sport",
+  "mode": 31,
+  "frames": 3148,
+  "input": [
+    1,
+    544
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 1.33514404296875e-05,
+  "sha256": {
+    "policy.pt": "ef33d13e9c0e3d3b4c1a06e7fb61fde0b4ee25c3b15d4d5749080e24458cd815",
+    "policy.onnx": "a4cdcc9d7e256309d469f6da00f5b48c4942043fca5c66ee28041a819bcf9854",
+    "motion.csv": "0fe7f1f8b2da0c12bbd3da51d754c603a350ab7d2c14da85071e05ef8d18be05",
+    "source.yaml": "363cb507845671d2dc5de93de0b9d8a0e7aaa88874bcf03adeb9f578a52bd2a2"
+  },
+  "resource_changes": {
+    "source.yaml": "added",
+    "policy.pt": "added",
+    "motion.csv": "added",
+    "policy.onnx": "exported"
+  },
+  "config_changed_fields": [],
+  "neck_gains": "no neck joints",
+  "conversion": "Source numeric values preserved; gravity clips follow normalized gravity; gain ratios=1, shared policy transition=0.15s; history initialized with first frame."
+}

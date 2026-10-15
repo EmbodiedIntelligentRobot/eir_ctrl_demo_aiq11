@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_12.zip",
+  "archive_sha256": "48ca6c59ece34b74d1c6c82e2569c9a6878e64c6e5b13e67be4dc5709e6115b3",
+  "source_directory": "aiq11/爬起/原来姿态",
+  "source_model": "policy_qishen_pazhe_923.pt",
+  "source_motion": "qishen_pazhe_923.txt",
+  "robot": "sport",
+  "mode": 38,
+  "frames": 546,
+  "input": [
+    1,
+    544
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 7.62939453125e-06,
+  "sha256": {
+    "policy.pt": "07d2c415ebaa13b6a2018df50a3568fc8c63a7d8b57dab90294779a24c907043",
+    "policy.onnx": "d51ff564d4a120b6329696299c44a5491394c71f30b25e311b25c32f2b1ae302",
+    "motion.csv": "15d3a43ee5d14354e4c2b6f39d2ebe5be3edd1db0950fa49e5d13e17ed2eb8a6",
+    "source.yaml": "845af2782275413e1d76911a7f3a8cccca357bf883a03363392684a83fabcdea"
+  },
+  "output_projection": "HYBRID_PRO",
+  "neck_gains": "no neck joints"
+}

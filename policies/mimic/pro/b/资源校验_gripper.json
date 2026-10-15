@@ -1,0 +1,26 @@
+{
+  "variant": "gripper",
+  "source_archive": "带假爪的交互版舞蹈.zip",
+  "archive_sha256": "3064a285976cf81fe2bf92d6cf4dd0950885dd568c671e8784d219a878712c48",
+  "source_directory": "mimic_b/pro",
+  "source_model": "policy_dance7_1010.pt",
+  "source_motion": "dance7_1009.txt",
+  "input": [
+    1,
+    664
+  ],
+  "output": [
+    1,
+    29
+  ],
+  "frames": 2147,
+  "comparison_samples": 101,
+  "max_abs_error": 3.0517578125e-05,
+  "reused_fist_model": true,
+  "sha256": {
+    "policy_gripper.pt": "ee1a7b59e7d621a190b5079cdc7da0ee388825bfc60452660faba5f668aeddc8",
+    "policy_gripper.onnx": "6484e5db8ecff085c8c6f5b30b723e3a040c5a2fa026a031574a5370b7693a6d",
+    "motion_gripper.csv": "3b315da4903403fd879d28b8874483a735f059c93366d359d65a342bcd5131ef",
+    "source_gripper.yaml": "792ee24b69281e789bfc5440af27e211bbd073b44ba9023ee09ba130cf6b9f4b"
+  }
+}

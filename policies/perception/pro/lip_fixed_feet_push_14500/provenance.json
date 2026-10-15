@@ -1,0 +1,13 @@
+{
+  "source_checkpoint": "/home/eir/lp_learning/logs/rsl_rl/aiq11_pro_parkour/2026-10-10_08-07-31_lip_perception_latest_model_fixed_feet_push_4096/model_14500.pt",
+  "checkpoint_sha256": "bf20bffec0204977b8b46f3c4f1a513f4786885568fb1ed47dab61880377bc5b",
+  "source_run": "/home/eir/lp_learning/logs/rsl_rl/aiq11_pro_parkour/2026-10-10_08-07-31_lip_perception_latest_model_fixed_feet_push_4096",
+  "exporter_sha256": "b56c405f5b93a3b8e423effe8b45e861fbd36dd9a2f314dd1a963da09bd631c0",
+  "exported_at_utc": "2026-10-11T08:47:01.166569+00:00",
+  "params_sha256": {
+    "env.yaml": "5128a1316bedefffbf21cd1ded5891dc823edf7482aad67d101ffb41db0bffd1",
+    "agent.yaml": "9e0710fcfa5c8b948bb056760229c7fc5fac80b458e2eb6c21b9941f53d5ef6d"
+  },
+  "robot": "ehr_description e09535da7ebbf4d482a9e72cb10a4357d285d16f; generated aiq11_pro_latest; 8 fixed 20 mm spheres per foot; foot wear disabled",
+  "training_service_changed": false
+}

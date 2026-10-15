@@ -1,0 +1,127 @@
+robot: pro
+kind: mimic_gravity_v1
+joints:
+- l_leg_1
+- l_leg_2
+- l_leg_3
+- l_leg_4
+- l_leg_5
+- l_leg_6
+- r_leg_1
+- r_leg_2
+- r_leg_3
+- r_leg_4
+- r_leg_5
+- r_leg_6
+- torso_1
+- torso_2
+- torso_3
+- l_arm_1
+- l_arm_2
+- l_arm_3
+- l_arm_4
+- l_arm_5
+- l_arm_6
+- l_arm_7
+- r_arm_1
+- r_arm_2
+- r_arm_3
+- r_arm_4
+- r_arm_5
+- r_arm_6
+- r_arm_7
+defaults:
+- -0.1965
+- 0.0
+- 0.0
+- 0.463
+- -0.2664
+- 0.0
+- -0.1965
+- 0.0
+- 0.0
+- 0.463
+- -0.2664
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.3
+- 0.0
+- 0.0
+- -0.89
+- 0.0
+- 0.0
+- 0.0
+- 0.3
+- 0.0
+- 0.0
+- -0.89
+- 0.0
+- 0.0
+- 0.0
+scales:
+- 0.216667
+- 0.270833
+- 0.1875
+- 0.25
+- 0.25
+- 0.25
+- 0.216667
+- 0.270833
+- 0.1875
+- 0.25
+- 0.25
+- 0.25
+- 0.249375
+- 0.234375
+- 0.234375
+- 0.583333
+- 0.36
+- 0.36
+- 0.36
+- 0.257143
+- 0.12
+- 0.12
+- 0.583333
+- 0.36
+- 0.36
+- 0.36
+- 0.257143
+- 0.12
+- 0.12
+history: 4
+velocity_mask:
+- l_leg_5
+- l_leg_6
+- r_leg_5
+- r_leg_6
+observation_clip: 100.0
+action_clip: 12.0
+step_seconds: 0.02
+output_mode: HYBRID_PRO
+mode: 38
+models:
+  libtorch:
+    sha256: 16ab1d69908fb88831f00a68e8fd6341a7689b4c51caccb43b7e3b9da94d9c1d
+  onnx:
+    sha256: cfb052a4472cdc49d85182c44b8543b192cb64ac70dad564dbdd0d754a759034
+mimic:
+  tracked_joints:
+  - neck_1
+  - neck_2
+  - neck_3
+  torso_joints:
+  - torso_1
+  - torso_2
+  - torso_3
+  motion_sha256: 75328a3fe0ed3a5a3bcbaa6558bc8df20bfee24e188e3f73b5a6028d33006946
+  heading:
+    mode: projected_body_axis
+    min_horizontal_projection: 0.5
+    max_angular_velocity: 0.15
+    max_residual_angle: 0.523599
+entry:
+  from_modes:
+  - 36
+  require_motion_complete: true

@@ -1,0 +1,344 @@
+{
+  "task": "aiq11_pro_female_walk",
+  "robot_model": "aiq11_pro_simplified.xml",
+  "run": "2026-10-12_22-34-39_female_standing_foot_motion_refine_local",
+  "checkpoint": "model_74994.pt",
+  "checkpoint_iteration": 74994,
+  "checkpoint_sha256": "f401c8103b28dc13dd6a38be015eb204dc31804c4ec8df351f2150b7892cc64c",
+  "policy": "aiq11pro_female_standing_foot_motion_refine_local_74994.pt",
+  "controller_policy_path": "config/amp/walk_amp_humanoid/pro/aiq11pro_female_standing_foot_motion_refine_local_74994.pt",
+  "format": "TorchScript",
+  "policy_sha256": "2c59ca1e9627a9c5a0f6a4cf6cde0a3c87bf1e27612257fdb0c4d7b83f3c1e1f",
+  "onnx": "aiq11pro_female_standing_foot_motion_refine_local_74994.onnx",
+  "onnx_sha256": "2e40bfd2ad148f5bf784f0e24b9e0137cc32859e6d1e4c2d1320040024032ea2",
+  "config": "aiq11pro_female_standing_foot_motion_refine_local_74994.yaml",
+  "config_sha256": "328e7be70f48f97726983bf2923cb591515cff0142941d2232acc3292a6ea1b3",
+  "control_config": "aiq11pro_female_standing_foot_motion_refine_local_74994.toml",
+  "control_config_sha256": "cda918e58cf6d2404954f22b7a01f97c6028379e3f38080d07a4f4cbb95f3d76",
+  "snapshots": "aiq11pro_female_standing_foot_motion_refine_local_74994",
+  "snapshot_sha256": {
+    "agent.yaml": "ad95e5c2c4702a067b153f580382f6d6036d8b42df61c8d6da75068f8b22c401",
+    "env.yaml": "1ae4eba68cca33f7a0f421f94aa2716d23cfc6a0fb6701379c3a6afa3fbf2247",
+    "model_74994.pt": "f401c8103b28dc13dd6a38be015eb204dc31804c4ec8df351f2150b7892cc64c"
+  },
+  "source": null,
+  "amp_feature_layout": {
+    "schema": "aiq11_pro_walk.feet_hands_knees.106.v1",
+    "joint_names": [
+      "l_leg_1",
+      "l_leg_2",
+      "l_leg_3",
+      "l_leg_4",
+      "l_leg_5",
+      "l_leg_6",
+      "r_leg_1",
+      "r_leg_2",
+      "r_leg_3",
+      "r_leg_4",
+      "r_leg_5",
+      "r_leg_6",
+      "torso_1",
+      "torso_2",
+      "torso_3",
+      "l_arm_1",
+      "l_arm_2",
+      "l_arm_3",
+      "l_arm_4",
+      "r_arm_1",
+      "r_arm_2",
+      "r_arm_3",
+      "r_arm_4"
+    ],
+    "key_body_names": [
+      "l_foot_l0",
+      "r_foot_l0",
+      "l_arm_l7",
+      "r_arm_l7",
+      "l_leg_l4",
+      "r_leg_l4"
+    ],
+    "label_names": [
+      "walk_low",
+      "walk_medium",
+      "walk_high",
+      "backward",
+      "turn",
+      "side",
+      "stand"
+    ],
+    "forward_speed_thresholds": [
+      1.06,
+      1.26
+    ],
+    "label_source": "command",
+    "zero_command_threshold": 0.0,
+    "tracking_velocity": "whole_body_com_yaw",
+    "forward_expert_weight_stages": [
+      {
+        "step": 0,
+        "weights": [
+          1.0,
+          0.8,
+          0.0
+        ]
+      },
+      {
+        "step": 72000,
+        "weights": [
+          1.0,
+          1.0,
+          0.8
+        ]
+      },
+      {
+        "step": 144000,
+        "weights": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "forward_expert_gate": "source_tier_lte_command_tier",
+    "stationary_forward_command_zone": {
+      "maximum_forward_speed": 0.3,
+      "maximum_lateral_speed": 0.05,
+      "maximum_yaw_speed": 0.05,
+      "actor_command": "raw"
+    }
+  },
+  "stationary_forward_command_zone": {
+    "maximum_forward_speed": 0.3,
+    "maximum_lateral_speed": 0.05,
+    "maximum_yaw_speed": 0.05,
+    "actor_command": "raw"
+  },
+  "amp_label_names": [
+    "walk_low",
+    "walk_medium",
+    "walk_high",
+    "backward",
+    "turn",
+    "side",
+    "stand"
+  ],
+  "run_thresholds": {
+    "forward_speed_thresholds": [
+      1.06,
+      1.26
+    ],
+    "label_source": "command",
+    "zero_command_threshold": 0.0,
+    "tracking_velocity": "whole_body_com_yaw",
+    "forward_expert_weight_stages": [
+      {
+        "step": 0,
+        "weights": [
+          1.0,
+          0.8,
+          0.0
+        ]
+      },
+      {
+        "step": 72000,
+        "weights": [
+          1.0,
+          1.0,
+          0.8
+        ]
+      },
+      {
+        "step": 144000,
+        "weights": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "forward_expert_gate": "source_tier_lte_command_tier"
+  },
+  "joint_names": [
+    "l_leg_1",
+    "l_leg_2",
+    "l_leg_3",
+    "l_leg_4",
+    "l_leg_5",
+    "l_leg_6",
+    "r_leg_1",
+    "r_leg_2",
+    "r_leg_3",
+    "r_leg_4",
+    "r_leg_5",
+    "r_leg_6",
+    "torso_1",
+    "torso_2",
+    "torso_3",
+    "l_arm_1",
+    "l_arm_2",
+    "l_arm_3",
+    "l_arm_4",
+    "r_arm_1",
+    "r_arm_2",
+    "r_arm_3",
+    "r_arm_4"
+  ],
+  "default_joint_pos": [
+    -0.18,
+    0.05,
+    0.17,
+    0.44,
+    -0.2583,
+    0.02781,
+    -0.18,
+    -0.05,
+    -0.17,
+    0.44,
+    -0.2583,
+    -0.02781,
+    0.0,
+    0.0,
+    0.0,
+    0.3,
+    0.0,
+    0.0,
+    -0.89,
+    0.3,
+    0.0,
+    0.0,
+    -0.89
+  ],
+  "kp": [
+    100.0,
+    100.0,
+    100.0,
+    150.0,
+    30.0,
+    30.0,
+    100.0,
+    100.0,
+    100.0,
+    150.0,
+    30.0,
+    30.0,
+    50.0,
+    70.0,
+    70.0,
+    30.0,
+    25.0,
+    25.0,
+    25.0,
+    30.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "kd": [
+    5.0,
+    3.0,
+    2.0,
+    5.0,
+    7.0,
+    0.4,
+    5.0,
+    3.0,
+    2.0,
+    5.0,
+    7.0,
+    0.4,
+    3.0,
+    5.0,
+    5.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "action_scales": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.25,
+    0.25,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.25,
+    0.25,
+    0.5,
+    0.5,
+    0.5,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2
+  ],
+  "obs_dim": 78,
+  "obs_history_length": 10,
+  "obs_flatten_dim": 780,
+  "action_dim": 23,
+  "step_dt": 0.02,
+  "physics_dt": 0.005,
+  "command_velocity_clip": {
+    "vx": [
+      -0.8,
+      1.4
+    ],
+    "vy": [
+      -0.55,
+      0.55
+    ],
+    "wz": [
+      -1.8,
+      1.8
+    ]
+  },
+  "command_range_source": "saved_environment_ranges",
+  "saved_command_ranges": {
+    "vx": [
+      -0.8,
+      1.4
+    ],
+    "vy": [
+      -0.55,
+      0.55
+    ],
+    "wz": [
+      -1.8,
+      1.8
+    ]
+  },
+  "action_clip": [
+    -100.0,
+    100.0
+  ],
+  "pro_neutral_hold": true,
+  "ankle_velocity_mask_indices": [
+    4,
+    5,
+    10,
+    11
+  ],
+  "history_order": "oldest_to_newest",
+  "observation_reference": "base_link",
+  "torchscript_max_abs_error": 0.0,
+  "onnx_torchscript_max_abs_error": 6.103515625e-05,
+  "test_input_count": 66,
+  "ros_controller_runtime_verified": false,
+  "controller_notes": [
+    "Runtime options follow the supplied template; controller source was not available.",
+    "No velocity low-pass filter was trained; fil_gain is omitted.",
+    "Full training damping is in jit_kd; additional hybrid motor Kd is zero.",
+    "Wrists/neck are fixed at zero in simulation; neutral-hold gains come from the template."
+  ]
+}

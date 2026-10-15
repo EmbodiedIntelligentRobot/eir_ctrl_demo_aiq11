@@ -1,0 +1,36 @@
+# 公共参数；按每台机器实际安装的硬件调整 data 和触发豁免名单。
+enabled: true
+directory: log/flight_recorder # 相对于启动时 cwd，可改为绝对目录。
+detailed_hz: 500
+application_hz: 50
+continuous_hz: 50
+pre_seconds: 10
+post_seconds: 5
+cooldown_seconds: 10
+sync_ms: 100
+queue_frames: 256
+max_pending: 2
+max_memory_bytes: 268435456
+max_storage_bytes: 2147483648
+min_free_bytes: 1073741824
+continuous_file_bytes: 67108864
+data:
+  commands: true
+  motors: true
+  imu: true
+  encoders: true
+  bms: true
+  hands: false # PRO 三指手实际安装后可开启；SPORT 禁止开启。
+  head: true
+  force_sensors: false
+  remote: true
+  alarms: true
+  application: true
+  actuator_torque: true # 仿真可用；实机没有此快照时保持 unavailable。
+triggers: [invalid_command, invalid_feedback, feedback_timeout, command_timeout,
+           backend_failure, motor_fault, hardware_offline, estop, application_fault, manual_save]
+# 触发豁免名单：仍记录事件；不因此保存事故；不影响任何运动保护。
+trigger_exemptions:
+  - event: hardware_offline
+    hardware: head_servo
+    # names 留空表示此类别全部豁免；指定单个时使用 [head_servo_0]。

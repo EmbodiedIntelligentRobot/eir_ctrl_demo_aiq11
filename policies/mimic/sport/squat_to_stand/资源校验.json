@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11/squat_to_stand",
+  "source_model": "policy_dunqi_916.pt",
+  "source_motion": "dunqi_916.txt",
+  "robot": "sport",
+  "mode": 43,
+  "frames": 374,
+  "input": [
+    1,
+    544
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 1.049041748046875e-05,
+  "sha256": {
+    "policy.pt": "035d10ca3267dd1b7baf4877ababfeadbd05e3153dae40e4c3606a8d48c0aff1",
+    "policy.onnx": "23fff139086ebff610c98b24447a4f68209093e147b94f5d10aba1820ccd9bed",
+    "motion.csv": "0eaccd45f34f3eca93b6d6c8b3504a3d3f0b1acbb98b1b7db6eed1aea206be1d",
+    "source.yaml": "80181e42299296cc441711b9005c8d02b33b76baae05d6849d72ecce8b7ec2b8"
+  },
+  "output_projection": "HYBRID_MODE",
+  "neck_gains": "no neck joints"
+}

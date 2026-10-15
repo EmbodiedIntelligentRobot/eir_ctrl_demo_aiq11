@@ -1,0 +1,263 @@
+# sim2sim(2).zip policy: 624 proprioception + 4608 depth -> 23 actions.
+# The archive's AIQ11_PRO is a 23-joint logical model. This overlay runs with
+# the workspace Sport mapping and retains its physical closed-chain mechanisms.
+# Ankle override: joint leg_5/6 Kd is zero; HYBRID_MODE motor Kd is 3.0.
+# Previous-action history alone is clipped to [-10,10]; output scale is 0.25.
+/**/main_controller:
+  ros__parameters:
+    perception_walk_enabled: true
+    perception_depth_publish_enabled: true
+    RL_PERCEPTION_WALK_profile_id: perception_walk
+    RL_PERCEPTION_WALK_policy_joint_layout: aiq11_23
+    RL_PERCEPTION_WALK_policy_path: config/perception_walk/pro/perception_policy.pt
+    RL_PERCEPTION_WALK_manifest_path: config/perception_walk/pro/perception_policy.manifest.json
+    RL_PERCEPTION_WALK_dtype: float32
+    RL_PERCEPTION_WALK_obs_dim: 5232
+    RL_PERCEPTION_WALK_obs_his_length: 8
+    RL_PERCEPTION_WALK_obs_flatten: true
+    RL_PERCEPTION_WALK_action_dim: 23
+    RL_PERCEPTION_WALK_action_his_length: 1
+    RL_PERCEPTION_WALK_step_dt: 0.02
+    RL_PERCEPTION_WALK_enable_preemptive_infer: false
+    RL_PERCEPTION_WALK_output_mode: HYBRID_MODE
+    RL_PERCEPTION_WALK_depth_topic: /perception/depth_stack
+    RL_PERCEPTION_WALK_preprocessing_version: parkour_depth_v2
+    RL_PERCEPTION_WALK_fixed_depth_test_enabled: false
+    RL_PERCEPTION_WALK_fixed_depth_test_m: 0.6
+    RL_PERCEPTION_WALK_depth_timeout: 0.1
+    RL_PERCEPTION_WALK_inference_timeout: 0.018
+    # torch CPU intra-op 线程数（**进程级**时序策略，唯一入口 locomotion/torch_threading.h；
+    # 与 FlowMimic 共用：inter-op 全进程只设置一次，intra-op「更严格（更小）者胜」）。
+    # 默认 1 的依据：batch=1 前向数值**位级一致**（40 组真实输入 × 23 维，max|Δ|=0），
+    # 极端超订（loadavg 43.79）下每周期工作量 p50 2.5 ms / max 4.0 ms（= 0.20 × 20 ms）。
+    # <=0 = 合法但**不设置**（保持现状，仅诊断/逃生用途）；更大值在 FlowMimic 启用时会被收紧为 1。
+    RL_PERCEPTION_WALK_intra_op_threads: 1
+
+    RL_PERCEPTION_WALK_max_position_step: 10.0
+    RL_PERCEPTION_WALK_hybrid_leg4_motor_kd: 0.0
+    RL_PERCEPTION_WALK_hybrid_leg56_motor_kd: 3.0
+    RL_PERCEPTION_WALK_hybrid_torso1_motor_kd: 0.0
+    # Torso damping already comes from the policy joint-space Kd (3/5/5).
+    RL_PERCEPTION_WALK_hybrid_torso23_motor_kd: 0.0
+    RL_PERCEPTION_WALK_policy_joint_names:
+    - l_leg_1
+    - l_leg_2
+    - l_leg_3
+    - l_leg_4
+    - l_leg_5
+    - l_leg_6
+    - r_leg_1
+    - r_leg_2
+    - r_leg_3
+    - r_leg_4
+    - r_leg_5
+    - r_leg_6
+    - torso_1
+    - torso_2
+    - torso_3
+    - l_arm_1
+    - l_arm_2
+    - l_arm_3
+    - l_arm_4
+    - r_arm_1
+    - r_arm_2
+    - r_arm_3
+    - r_arm_4
+    RL_PERCEPTION_WALK_policy_default_position:
+    - -0.1715
+    - -0.0027
+    - 0.0013
+    - 0.4517
+    - -0.2802
+    - 0.003
+    - -0.1715
+    - -0.0027
+    - 0.0013
+    - 0.4517
+    - -0.2802
+    - 0.003
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.3
+    - 0.0
+    - 0.0
+    - -0.89
+    - 0.3
+    - 0.0
+    - 0.0
+    - -0.89
+    RL_PERCEPTION_WALK_policy_action_scale:
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    RL_PERCEPTION_WALK_policy_kp:
+    - 100.0
+    - 100.0
+    - 100.0
+    - 100.0
+    - 20.0
+    - 20.0
+    - 100.0
+    - 100.0
+    - 100.0
+    - 100.0
+    - 20.0
+    - 20.0
+    - 50.0
+    - 70.0
+    - 70.0
+    - 30.0
+    - 25.0
+    - 25.0
+    - 25.0
+    - 30.0
+    - 25.0
+    - 25.0
+    - 25.0
+    RL_PERCEPTION_WALK_policy_kd:
+    - 3.0
+    - 3.0
+    - 2.0
+    - 3.0
+    - 0.0
+    - 0.0
+    - 3.0
+    - 3.0
+    - 2.0
+    - 3.0
+    - 0.0
+    - 0.0
+    - 3.0
+    - 5.0
+    - 5.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    RL_PERCEPTION_WALK_default_jit_pos:
+    - -0.1715
+    - -0.0027
+    - 0.0013
+    - 0.4517
+    - -0.2802
+    - 0.003
+    - -0.1715
+    - -0.0027
+    - 0.0013
+    - 0.4517
+    - -0.2802
+    - 0.003
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.3
+    - 0.0
+    - 0.0
+    - -0.89
+    - 0.3
+    - 0.0
+    - 0.0
+    - -0.89
+    RL_PERCEPTION_WALK_jit_kp:
+    - 100.0
+    - 100.0
+    - 100.0
+    - 100.0
+    - 20.0
+    - 20.0
+    - 100.0
+    - 100.0
+    - 100.0
+    - 100.0
+    - 20.0
+    - 20.0
+    - 50.0
+    - 70.0
+    - 70.0
+    - 30.0
+    - 25.0
+    - 25.0
+    - 25.0
+    - 30.0
+    - 25.0
+    - 25.0
+    - 25.0
+    RL_PERCEPTION_WALK_jit_kd:
+    - 3.0
+    - 3.0
+    - 2.0
+    - 3.0
+    - 0.0
+    - 0.0
+    - 3.0
+    - 3.0
+    - 2.0
+    - 3.0
+    - 0.0
+    - 0.0
+    - 3.0
+    - 5.0
+    - 5.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    - 2.0
+    RL_PERCEPTION_WALK_obs_terms:
+    - base_ang_vel
+    - projected_gravity
+    - velocity_commands
+    - joint_pos
+    - joint_vel
+    - actions
+    - depth_image
+    RL_PERCEPTION_WALK_obs_cfg:
+      base_ang_vel:
+        obs_scale: 1.0
+      projected_gravity:
+        obs_scale: 1.0
+      velocity_commands:
+        obs_scale: 1.0
+      joint_pos:
+        obs_scale: 1.0
+      joint_vel:
+        obs_scale: 1.0
+      actions:
+        obs_scale: 1.0
+      depth_image:
+        obs_scale: 1.0
+    RL_PERCEPTION_WALK_action_cfg:
+      jit_pos:
+        clip_range:
+        - -.inf
+        - .inf
+        action_scale: 1.0
+    perception_depth_camera_site: gemini_336_lf_laser_emitter_link

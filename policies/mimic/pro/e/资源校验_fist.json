@@ -1,0 +1,39 @@
+{
+  "source_archive": "运动版舞蹈&不带假爪交互版舞蹈.zip",
+  "archive_sha256": "4697ea411b4e394dff6bfa6c94842b3af52e8b45c5300be33e49c3654174a5e8",
+  "source_directory": "mimic_e/pro",
+  "source_model": "policy_dance13_pro_0911_iter13000.pt",
+  "source_motion": "dance13_pro_0911.txt",
+  "robot": "pro",
+  "mode": 34,
+  "frames": 2316,
+  "input": [
+    1,
+    664
+  ],
+  "output": [
+    1,
+    29
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 1.71661376953125e-05,
+  "sha256": {
+    "policy_fist.pt": "5123b5e2f9d8a41d3dfcadc2b3058b55fa2242f3a629427177ca4a6f72608960",
+    "policy_fist.onnx": "b7340990134b6de12f17c3649aed5cf052274254a5c5325bcff4d5d4b152ce9f",
+    "motion_fist.csv": "756934e7d02f4cf72ba40e769a0ba5d27ed7a58cb9867c925b4252796ac8f367",
+    "source_fist.yaml": "88c6ee509df5a7831f82d9a947f8a2fe64c4064006f5377c0e6a8275e7c978ab"
+  },
+  "resource_changes": {
+    "source.yaml": "identical_skipped",
+    "policy.pt": "identical_skipped",
+    "motion.csv": "identical_skipped",
+    "policy.onnx": "identical_model_reused"
+  },
+  "config_changed_fields": [
+    "output_mode"
+  ],
+  "neck_gains": "source has no neck gains; existing tracked_kp=20/kd=2",
+  "conversion": "Source numeric values preserved; gravity clips follow normalized gravity; gain ratios=1, shared policy transition=0.15s; history initialized with first frame.",
+  "variant": "fist"
+}

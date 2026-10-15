@@ -1,0 +1,118 @@
+robot: pro
+kind: mimic_gravity_v1
+joints:
+- l_leg_1
+- l_leg_2
+- l_leg_3
+- l_leg_4
+- l_leg_5
+- l_leg_6
+- r_leg_1
+- r_leg_2
+- r_leg_3
+- r_leg_4
+- r_leg_5
+- r_leg_6
+- torso_1
+- torso_2
+- torso_3
+- l_arm_1
+- l_arm_2
+- l_arm_3
+- l_arm_4
+- l_arm_5
+- l_arm_6
+- l_arm_7
+- r_arm_1
+- r_arm_2
+- r_arm_3
+- r_arm_4
+- r_arm_5
+- r_arm_6
+- r_arm_7
+defaults:
+- -0.2165
+- 0.0
+- 0.0
+- 0.463
+- -0.2764
+- 0.0
+- -0.2165
+- 0.0
+- 0.0
+- 0.463
+- -0.2764
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.3
+- 0.0
+- 0.0
+- -0.89
+- 0.0
+- 0.0
+- 0.0
+- 0.3
+- 0.0
+- 0.0
+- -0.89
+- 0.0
+- 0.0
+- 0.0
+scales:
+- 0.217
+- 0.271
+- 0.188
+- 0.25
+- 0.25
+- 0.25
+- 0.217
+- 0.271
+- 0.188
+- 0.25
+- 0.25
+- 0.25
+- 0.249
+- 0.234
+- 0.234
+- 0.583
+- 0.36
+- 0.36
+- 0.36
+- 0.36
+- 0.2
+- 0.2
+- 0.583
+- 0.36
+- 0.36
+- 0.36
+- 0.36
+- 0.2
+- 0.2
+history: 4
+velocity_mask:
+- l_leg_5
+- l_leg_6
+- r_leg_5
+- r_leg_6
+observation_clip: 100.0
+action_clip: 8.0
+step_seconds: 0.02
+output_mode: HYBRID_MODE
+models:
+  libtorch:
+    sha256: 2d87e64d762208ba7d1a874091c403d142c27adf0322342ada4a74d1200551b3
+  onnx:
+    sha256: bdfa43f4c119746588d9ba31e25161f008fcb4d4b33dd99c6a266054749fc0af
+mimic:
+  tracked_joints:
+  - neck_1
+  - neck_2
+  - neck_3
+  torso_joints:
+  - torso_1
+  - torso_2
+  - torso_3
+  motion_sha256: f8d689d83fa4b9a4fbeb152ecb2924573cf31e29ef28e9b3a12801a9c60ed6fd
+mimic_variant: fist

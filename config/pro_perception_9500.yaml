@@ -1,0 +1,105 @@
+flight_recorder: flight_recorder.yaml
+# LIP mixed-push model_9500 感知行走与现有 AMP/MIMIC 共用遥控入口。
+robot: robots/pro.yaml
+policies:
+  41: ../policies/perception/pro/lip_mixed_push_9500/config.yaml
+  28: ../policies/amp/pro/walk/config.yaml
+  30: ../policies/mimic/pro/a/config.yaml
+  31: ../policies/mimic/pro/b/config.yaml
+  32: ../policies/mimic/pro/c/config.yaml
+  33: ../policies/mimic/pro/d/config.yaml
+  34: ../policies/mimic/pro/e/config.yaml
+inference:
+  backend: libtorch
+  perception_execution: combined
+  threads: 1
+  warmup_steps: 10
+runtime:
+  backend: simulation
+  model: ../../../sdk/share/eir_mujoco/aiq11_pro/model/urdf/aiq11_pro.xml
+  headless: false
+  suspend: true
+  release_after_ready: true
+  damping_kd: 5.0
+  depth:
+    preprocessing_version: parkour_depth_v2
+    site: gemini_336_lf_laser_emitter_link
+    frequency_hz: 50
+    raw_width: 64
+    raw_height: 36
+    crop_up: 18
+    crop_down: 0
+    crop_left: 16
+    crop_right: 16
+    min_distance: 0.0
+    max_distance: 2.5
+    sensor_min_distance: 0.25 # axial sensor range; outside/no-hit -> zero before blur
+    sensor_max_distance: 2.5 # independent from policy normalization
+    horizontal_fov_deg: 89.51
+    vertical_fov_deg: 58.29
+timing:
+  policy_transition_seconds: 0.15
+  control_hz: 500.0
+  io_hz: 500.0
+  inference_hz: 50.0
+  ros_hz: 50.0
+  feedback_timeout: 0.1
+  inference_timeout: 0.1
+  first_inference_timeout: 0.2
+  command_timeout: 0.1
+  velocity_timeout: 0.2
+  request_timeout: 0.5
+  limit_warning_period: 2.0
+threads:
+  control_cpu: -1
+  control_priority: 0
+  inference_cpu: -1
+remote:
+  gui: true
+  source: external
+  velocity_topic: /loco_velocity_cmd
+  mode_service: /mode_switch
+  raw_topic: /hw/remote_state
+  sbus:
+    minimum: 282
+    center: 1002
+    maximum: 1722
+    deadband: 0.05
+    axes:
+    - 2
+    - 1
+    - 0
+    axis_signs:
+    - 1.0
+    - -1.0
+    - -1.0
+    axis_scales:
+    - 1.4
+    - 0.6
+    - 1.8
+    shortcuts:
+    - mode: 1
+      channels:
+      - 5
+      - 6
+      values:
+      - 1722
+      - 1722
+    - mode: 2
+      channels:
+      - 5
+      - 9
+      values:
+      - 282
+      - 1722
+debug:
+  depth_image_topic: /perception/depth/image
+  enabled: false
+  rate_hz: 20.0
+  runtime_topic: debug/runtime
+  joint_topic: debug/joint
+  motor_topic: debug/motor
+  hand_topic: debug/hand
+
+# 上半身离线动作仅在 AMP WALK 中播放，感知/MIMIC 模式拒绝播放。
+motion_stream: ../motions/pro/config.yaml

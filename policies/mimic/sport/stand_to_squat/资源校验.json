@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11/stand_to_squat",
+  "source_model": "policy_xiadun_0918.pt",
+  "source_motion": "xiadun_0918.txt",
+  "robot": "sport",
+  "mode": 42,
+  "frames": 392,
+  "input": [
+    1,
+    544
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 6.9141387939453125e-06,
+  "sha256": {
+    "policy.pt": "3d10db625174ff9fb140748550dacdb21166b5572ede67971b2784c3181be9c7",
+    "policy.onnx": "9d43f70361cc042104e1a8a2d9e26819a806bc1b4c7341adbe2137c39ed2e1a4",
+    "motion.csv": "db56105bf4edcdde662b530f0516e7ce17b08fb13dd96fb1ebaa68dac71f181f",
+    "source.yaml": "0471a54b2d78121344f19743ee6feb65c7cf0eca8fa5541471e4c9fcd58c8e25"
+  },
+  "output_projection": "HYBRID_MODE",
+  "neck_gains": "no neck joints"
+}

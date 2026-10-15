@@ -1,0 +1,36 @@
+{
+  "source_archive": "运动版舞蹈&不带假爪交互版舞蹈.zip",
+  "archive_sha256": "4697ea411b4e394dff6bfa6c94842b3af52e8b45c5300be33e49c3654174a5e8",
+  "source_directory": "mimic_a/sport",
+  "source_model": "policy_909.pt",
+  "source_motion": "lalacao_909.txt",
+  "robot": "sport",
+  "mode": 30,
+  "frames": 5724,
+  "input": [
+    1,
+    544
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 1.7642974853515625e-05,
+  "sha256": {
+    "policy.pt": "277abc0792ab826e89c8fd652fa081d887742a7ec51b462165ed4e625734c556",
+    "policy.onnx": "55cf3d73e08901227223ebda32efca36877d76e3499500540900fb4cdad168df",
+    "motion.csv": "321c1c9d29d3827be8474b37ca3a60ad0cff4a51b7d5f735b4ccf3c82bd624ef",
+    "source.yaml": "fa96b936221f06b35362dd4aa0b8e29470b560712a5ebe8fa04f14c85106bb26"
+  },
+  "resource_changes": {
+    "source.yaml": "added",
+    "policy.pt": "added",
+    "motion.csv": "added",
+    "policy.onnx": "exported"
+  },
+  "config_changed_fields": [],
+  "neck_gains": "no neck joints",
+  "conversion": "Source numeric values preserved; gravity clips follow normalized gravity; gain ratios=1, shared policy transition=0.15s; history initialized with first frame."
+}

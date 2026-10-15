@@ -1,0 +1,142 @@
+# Select A-E once from LEGACY hand online/default feedback; never switch while running.
+mimic_variant: auto
+mimic_detection: {stable_seconds: 0.1, timeout_seconds: 1.0}
+flight_recorder: flight_recorder.yaml
+# AIQ11 PRO hardware. Use the validated SDK YAML for this robot.
+# motor_slots are physical JointMapping slots, validated then converted by the
+# application to SDK logical API indices. Encoder order is pitch, roll.
+# No MuJoCo model, virtual suspension, or simulated hand resources are loaded.
+robot: robots/pro.yaml
+policies:
+  28: ../policies/amp/pro/walk/config.yaml
+  30: ../policies/mimic/pro/a/config.yaml
+  31: ../policies/mimic/pro/b/config.yaml
+  32: ../policies/mimic/pro/c/config.yaml
+  33: ../policies/mimic/pro/d/config.yaml
+  34: ../policies/mimic/pro/e/config.yaml
+inference:
+  backend: onnx
+  threads: 1
+  warmup_steps: 10
+runtime:
+  backend: hardware
+  hardware_config: ${AIQ11_PRO_HARDWARE_CONFIG}
+  # Enable hand commands only for configured LEGACY hands; presence detection is independent.
+  hand_control: false
+  motor_slots:
+    l_leg_1: 17
+    l_leg_2: 18
+    l_leg_3: 19
+    l_leg_4: 20
+    l_leg_41: 21
+    l_leg_43: 22
+    r_leg_1: 23
+    r_leg_2: 24
+    r_leg_3: 25
+    r_leg_4: 26
+    r_leg_41: 27
+    r_leg_43: 28
+    torso_1: 14
+    torso_31: 15
+    torso_33: 16
+    l_arm_1: 0
+    l_arm_2: 1
+    l_arm_3: 2
+    l_arm_4: 3
+    l_arm_5: 4
+    l_arm_51: 5
+    l_arm_7: 6
+    r_arm_1: 7
+    r_arm_2: 8
+    r_arm_3: 9
+    r_arm_4: 10
+    r_arm_5: 11
+    r_arm_51: 12
+    r_arm_7: 13
+    neck_1: 29
+    neck_11: 30
+    neck_13: 31
+  encoder_names:
+  - torso_3
+  - torso_2
+  damping_kd: 5.0
+  # Motor names (arm_51 is the wrist actuator), not anatomical joint names.
+  damping_kd_overrides:
+    l_arm_5: 0.5
+    l_arm_51: 0.5
+    l_arm_7: 0.5
+    r_arm_5: 0.5
+    r_arm_51: 0.5
+    r_arm_7: 0.5
+    neck_1: 0.5
+    neck_11: 0.5
+    neck_13: 0.5
+timing:
+  policy_transition_seconds: 0.15
+  control_hz: 500.0
+  io_hz: 500.0
+  inference_hz: 50.0
+  ros_hz: 50.0
+  feedback_timeout: 0.1
+  inference_timeout: 0.1
+  first_inference_timeout: 0.2
+  command_timeout: 0.1
+  velocity_timeout: 0.2
+  request_timeout: 0.5
+  limit_warning_period: 2.0
+threads:
+  control_cpu: -1
+  control_priority: 0
+  inference_cpu: -1
+remote:
+  gui: false
+  source: external
+  velocity_topic: /loco_velocity_cmd
+  mode_service: /mode_switch
+  raw_topic: /hw/remote_state
+  sbus:
+    minimum: 282
+    center: 1002
+    maximum: 1722
+    deadband: 0.05
+    axes:
+    - 2
+    - 3
+    - 0
+    axis_signs:
+    - 1.0
+    - -1.0
+    - -1.0
+    axis_scales:
+    - 1.4
+    - 0.6
+    - 1.8
+    shortcuts:
+    - mode: 1
+      channels:
+      - 5
+      - 6
+      values:
+      - 1722
+      - 1722
+    - mode: 2
+      channels:
+      - 5
+      - 9
+      values:
+      - 282
+      - 1722
+    - mode: 28
+      channels:
+      - 5
+      - 8
+      values:
+      - 282
+      - 1722
+debug:
+  enabled: true
+  rate_hz: 20.0
+  runtime_topic: debug/runtime
+  joint_topic: debug/joint
+  motor_topic: debug/motor
+  hand_topic: debug/hand

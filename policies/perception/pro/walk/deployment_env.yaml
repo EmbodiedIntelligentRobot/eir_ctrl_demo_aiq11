@@ -1,0 +1,487 @@
+actions:
+  joint_pos:
+    asset_name: robot
+    debug_vis: false
+    clip: null
+    joint_names:
+    - l_leg_1
+    - l_leg_2
+    - l_leg_3
+    - l_leg_4
+    - l_leg_5
+    - l_leg_6
+    - r_leg_1
+    - r_leg_2
+    - r_leg_3
+    - r_leg_4
+    - r_leg_5
+    - r_leg_6
+    - torso_1
+    - torso_2
+    - torso_3
+    - l_arm_1
+    - l_arm_2
+    - l_arm_3
+    - l_arm_4
+    - r_arm_1
+    - r_arm_2
+    - r_arm_3
+    - r_arm_4
+    scale: 0.25
+    offset: 0.0
+    preserve_order: true
+    use_default_offset: true
+sim:
+  dt: 0.005
+decimation: 4
+observations:
+  policy:
+    joint_pos:
+      history_length: 8
+scene:
+  robot:
+    init_state:
+      pos:
+      - 0.0
+      - 0.0
+      - 0.7
+      rot:
+      - 1.0
+      - 0.0
+      - 0.0
+      - 0.0
+      lin_vel:
+      - 0.0
+      - 0.0
+      - 0.0
+      ang_vel:
+      - 0.0
+      - 0.0
+      - 0.0
+      joint_pos:
+        l_leg_1: -0.1715
+        l_leg_2: -0.0027
+        l_leg_3: 0.0013
+        l_leg_4: 0.4517
+        l_leg_5: -0.2802
+        l_leg_6: 0.003
+        r_leg_1: -0.1715
+        r_leg_2: -0.0027
+        r_leg_3: 0.0013
+        r_leg_4: 0.4517
+        r_leg_5: -0.2802
+        r_leg_6: 0.003
+        torso_1: 0.0
+        torso_2: 0.0
+        torso_3: 0.0
+        l_arm_1: 0.3
+        l_arm_2: 0.0
+        l_arm_3: 0.0
+        l_arm_4: -0.89
+        r_arm_1: 0.3
+        r_arm_2: 0.0
+        r_arm_3: 0.0
+        r_arm_4: -0.89
+      joint_vel:
+        .*: 0.0
+    actuators:
+      torsos_1:
+        joint_names_expr:
+        - torso_1
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 75
+        velocity_limit_sim: 25.0
+        stiffness:
+          torso_1: 50
+        damping:
+          torso_1: 3.0
+        armature: 0.1
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      torsos_2:
+        joint_names_expr:
+        - torso_2
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 75
+        velocity_limit_sim: 25.0
+        stiffness:
+          torso_2: 70
+        damping:
+          torso_2: 5.0
+        armature: 0.1
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      torsos_3:
+        joint_names_expr:
+        - torso_3
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 75
+        velocity_limit_sim: 25.0
+        stiffness:
+          torso_3: 70
+        damping:
+          torso_3: 5.0
+        armature: 0.162
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      leg_1:
+        joint_names_expr:
+        - l_leg_1
+        - r_leg_1
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 130
+        velocity_limit_sim: 35
+        stiffness: 100
+        damping: 3.0
+        armature: 0.063828
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      leg_2:
+        joint_names_expr:
+        - l_leg_2
+        - r_leg_2
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 130
+        velocity_limit_sim: 35
+        stiffness: 100
+        damping: 3.0
+        armature: 0.063828
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      leg_3:
+        joint_names_expr:
+        - l_leg_3
+        - r_leg_3
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 90
+        velocity_limit_sim: 35
+        stiffness: 100
+        damping: 2.0
+        armature: 0.031752
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      leg_4:
+        joint_names_expr:
+        - l_leg_4
+        - r_leg_4
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 130
+        velocity_limit_sim: 13
+        stiffness: 100
+        damping: 3.0
+        armature: 0.255312
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      leg_5:
+        joint_names_expr:
+        - l_leg_5
+        - r_leg_5
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 75
+        velocity_limit_sim: 25
+        stiffness: 20.0
+        damping: 4.0
+        armature: 0.162
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      leg_6:
+        joint_names_expr:
+        - l_leg_6
+        - r_leg_6
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 75
+        velocity_limit_sim: 25
+        stiffness: 20.0
+        damping: 0.5
+        armature: 0.005
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      arm_1:
+        joint_names_expr:
+        - l_arm_1
+        - r_arm_1
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 70
+        velocity_limit_sim: 25.0
+        stiffness: 30
+        damping: 2.0
+        armature: 0.0576489
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      arm_2:
+        joint_names_expr:
+        - l_arm_2
+        - r_arm_2
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 36
+        velocity_limit_sim: 20.0
+        stiffness: 25
+        damping: 2.0
+        armature: 0.023328
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      arm_3:
+        joint_names_expr:
+        - l_arm_3
+        - r_arm_3
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 36
+        velocity_limit_sim: 20.0
+        stiffness: 25
+        damping: 2.0
+        armature: 0.023328
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+      arm_4:
+        joint_names_expr:
+        - l_arm_4
+        - r_arm_4
+        effort_limit: null
+        velocity_limit: null
+        effort_limit_sim: 36
+        velocity_limit_sim: 20.0
+        stiffness: 25
+        damping: 2.0
+        armature: 0.023328
+        friction: 0.05
+        dynamic_friction: null
+        viscous_friction: null
+  camera:
+    pattern_cfg:
+      focal_length: 1.0
+      horizontal_aperture: 1.9829684971963653
+      vertical_aperture: 1.1152440419261633
+      horizontal_aperture_offset: 0.0
+      vertical_aperture_offset: 0.0
+      width: 64
+      height: 36
+    mesh_prim_paths:
+    - /World/ground
+    - prim_expr: /World/envs/env_.*/Robot/base_link/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/torso_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/torso_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/torso_l3/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_arm_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_arm_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_arm_l3/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_arm_l4/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_arm_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_arm_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_arm_l3/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_arm_l4/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_leg_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_leg_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_leg_l3/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_leg_l4/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_leg_l5/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_leg_l6/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_leg_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_leg_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_leg_l3/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_leg_l4/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_leg_l5/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_leg_l6/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_arm_l5/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_arm_l6/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_arm_l7/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_arm_l5/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_arm_l6/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_arm_l7/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/neck_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/neck_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/neck_l3/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_fg1_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_fg1_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_fg2_l0/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_fg2_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_fg2_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_fg3_l0/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_fg3_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_fg3_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_fg1_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_fg1_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_fg2_l0/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_fg2_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_fg2_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_fg3_l0/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_fg3_l1/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_fg3_l2/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/l_foot_l0/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true
+    - prim_expr: /World/envs/env_.*/Robot/r_foot_l0/visuals
+      is_shared: true
+      merge_prim_meshes: true
+      track_mesh_transforms: true

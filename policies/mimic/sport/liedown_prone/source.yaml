@@ -1,0 +1,134 @@
+/**/main_controller:
+  ros__parameters:
+    # -------------------------------------------------------------------------
+    # 策略与动作资源
+    # -------------------------------------------------------------------------
+    RL_LIEDOWN_PRONE_profile_id: "liedown_prone"
+    RL_LIEDOWN_PRONE_configuration_required: true
+    # Stand3 gravity-observation policy (2026-07-21).
+    # Policy I/O and motion joint columns all use WBC/Pinocchio order.
+    RL_LIEDOWN_PRONE_policy_joint_layout: "aiq11_23"
+    RL_LIEDOWN_PRONE_policy_path: "config/mimic/liedown_prone/sport/policy_paxia_917.pt"
+    RL_LIEDOWN_PRONE_motion_file: "config/mimic/liedown_prone/sport/917_new_paxia.txt"
+
+    # -------------------------------------------------------------------------
+    # 回放与推理时序
+    # -------------------------------------------------------------------------
+    RL_LIEDOWN_PRONE_motion_loop: false
+    RL_LIEDOWN_PRONE_warm_up_steps: 5
+    RL_LIEDOWN_PRONE_first_frame_hold_sec: 0.0
+    RL_LIEDOWN_PRONE_gain_transition:
+      duration: 0.15
+      kp_start_ratio: 1.0
+      kd_start_ratio: 1.0
+    RL_LIEDOWN_PRONE_ankle_hold_before_history: true
+
+    # -------------------------------------------------------------------------
+    # 观测接口与历史
+    # -------------------------------------------------------------------------
+    # Single frame: 136, four-frame term-major history: 544.
+    RL_LIEDOWN_PRONE_obs_dim: 136
+    RL_LIEDOWN_PRONE_policy_input_dim: 544
+    RL_LIEDOWN_PRONE_obs_his_length: 4
+    RL_LIEDOWN_PRONE_obs_flatten: true
+    RL_LIEDOWN_PRONE_obs_history_layout: "term_major_oldest_to_newest"
+    RL_LIEDOWN_PRONE_obs_history_init: "repeat_first_frame"
+    RL_LIEDOWN_PRONE_obs_history_groups: [
+      "motion_joint_pos+motion_joint_vel",
+      "motion_anchor_ori_b",
+      "base_projected_gravity_b",
+      "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b",
+      "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+
+    # -------------------------------------------------------------------------
+    # 动作接口与输出模式
+    # -------------------------------------------------------------------------
+    RL_LIEDOWN_PRONE_action_dim: 23
+    RL_LIEDOWN_PRONE_action_his_length: 1
+    RL_LIEDOWN_PRONE_step_dt: 0.02
+
+    # 可选模式: POS_MODE / TORQUE_MODE / HYBRID_MODE / HYBRID_PRO。
+    RL_LIEDOWN_PRONE_output_mode: "HYBRID_MODE"
+    RL_LIEDOWN_PRONE_hybrid_leg4_motor_kd: 5.0
+    RL_LIEDOWN_PRONE_hybrid_leg56_motor_kd: 2.0
+    RL_LIEDOWN_PRONE_hybrid_torso1_motor_kd: 5.0
+    RL_LIEDOWN_PRONE_hybrid_torso23_motor_kd: 5.0
+
+    # 踝关节 joint Kd -> 两个驱动器独立标量 motor Kd。
+    RL_LIEDOWN_PRONE_ankle_kd_map: false
+    RL_LIEDOWN_PRONE_ankle_kd_mode: "ZERO_CROSS"  # ZERO_CROSS 或 SOFT_QP
+    RL_LIEDOWN_PRONE_ankle_kd_wp: 1.0
+    RL_LIEDOWN_PRONE_ankle_kd_wr: 1.0
+    RL_LIEDOWN_PRONE_ankle_kd_wc: 1.0
+    RL_LIEDOWN_PRONE_ankle_kd_fb: 3.0
+
+    # -------------------------------------------------------------------------
+    # 关节参考值与增益
+    # -------------------------------------------------------------------------
+    # WBC/Pinocchio 顺序: 双腿 12、躯干 3、左臂 4、右臂 4。
+    RL_LIEDOWN_PRONE_default_jit_pos: [
+      -0.1965, 0.0, 0.0, 0.463, -0.2664, 0.0,
+      -0.1965, 0.0, 0.0, 0.463, -0.2664, 0.0,
+      0.0, 0.0, 0.0,
+      0.3, 0.0, 0.0, -0.89,
+      0.3, 0.0, 0.0, -0.89
+    ]
+
+    RL_LIEDOWN_PRONE_jit_kp: [
+      100.0, 100.0, 80.0, 100.0, 25.0, 20.0,
+      100.0, 100.0, 80.0, 100.0, 25.0, 20.0,
+      100.0, 95.0, 80.0,
+      30.0, 25.0, 25.0, 25.0,
+      30.0, 25.0, 25.0, 25.0
+    ]  
+
+    RL_LIEDOWN_PRONE_jit_kd: [
+      3.0, 3.0, 2.0, 0.0, 0.0, 0.0,
+      3.0, 3.0, 2.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 0.0,
+      2.0, 2.0, 2.0, 2.0,
+      2.0, 2.0, 2.0, 2.0
+    ]
+
+    # -------------------------------------------------------------------------
+    # 观测项
+    # -------------------------------------------------------------------------
+    RL_LIEDOWN_PRONE_obs_terms: [
+      "motion_joint_pos", "motion_joint_vel", "motion_anchor_ori_b",
+      "base_projected_gravity_b", "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b", "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+    # 顺序: [pitch/leg_5, roll/leg_6]；true 表示左右腿对应速度观测置零。
+    RL_LIEDOWN_PRONE_ankle_vel_mask: [true, true]
+    RL_LIEDOWN_PRONE_obs_term_dims: [23, 23, 6, 3, 3, 3, 3, 3, 23, 23, 23]
+
+    RL_LIEDOWN_PRONE_obs_cfg:
+      motion_joint_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_joint_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_anchor_ori_b: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      omega: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      last_action: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+
+    # -------------------------------------------------------------------------
+    # 动作配置与逐关节缩放
+    # -------------------------------------------------------------------------
+    RL_LIEDOWN_PRONE_action_cfg:
+      jit_pos: {clip_range: [-8.0, 8.0]}
+
+    RL_LIEDOWN_PRONE_act_scales: [
+      0.325, 0.325, 0.28125, 0.325, 0.250, 0.250,
+      0.325, 0.325, 0.28125, 0.325, 0.250, 0.250,
+      0.249375, 0.234375, 0.234375,
+      0.583333, 0.360, 0.360, 0.360,
+      0.583333, 0.360, 0.360, 0.360
+    ]

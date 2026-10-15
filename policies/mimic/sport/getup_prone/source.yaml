@@ -1,0 +1,189 @@
+/**/main_controller:
+  ros__parameters:
+    # -------------------------------------------------------------------------
+    # 策略与动作资源
+    # -------------------------------------------------------------------------
+    RL_GETUP_PRONE_profile_id: "getup_prone"
+    RL_GETUP_PRONE_configuration_required: true
+
+    # Sport prone get-up policy, delivered 2026-09-16 (914).
+    # Policy I/O and motion joint columns all use WBC/Pinocchio order.
+    RL_GETUP_PRONE_policy_joint_layout: "aiq11_23"
+
+    RL_GETUP_PRONE_policy_path: "config/mimic/getup_prone/sport/policy_new_paqi_924.pt"
+    RL_GETUP_PRONE_motion_file: "config/mimic/getup_prone/sport/hand_paqi_924_xiawu.txt"
+    # -------------------------------------------------------------------------
+    # 回放与推理时序
+    # -------------------------------------------------------------------------
+    RL_GETUP_PRONE_motion_loop: false
+    RL_GETUP_PRONE_warm_up_steps: 5
+    RL_GETUP_PRONE_first_frame_hold_sec: 0.0
+
+    # 俯卧姿态接近欧拉角奇异区，使用水平投影在世界系锁定起身航向。
+    # 激活时机器人必须静止且姿态接近动作首帧，否则保持当前关节位置并拒绝策略输出。
+    RL_GETUP_PRONE_heading_alignment: "PROJECTED_BODY_AXIS"
+    RL_GETUP_PRONE_heading_axis: "AUTO"
+    RL_GETUP_PRONE_alignment_max_angular_velocity: 0.15
+    RL_GETUP_PRONE_alignment_min_horizontal_projection: 0.5
+    RL_GETUP_PRONE_alignment_max_residual_angle: 0.523599
+
+    RL_GETUP_PRONE_gain_transition:
+      duration: 0.15
+      kp_start_ratio: 1.0
+      kd_start_ratio: 1.0
+
+    RL_GETUP_PRONE_ankle_hold_before_history: true
+
+    # -------------------------------------------------------------------------
+    # 观测接口与历史
+    # -------------------------------------------------------------------------
+    # 单帧 136 维；4 帧 term-major 历史共 544 维。
+    RL_GETUP_PRONE_obs_dim: 136
+    RL_GETUP_PRONE_policy_input_dim: 544
+    RL_GETUP_PRONE_obs_his_length: 4
+    RL_GETUP_PRONE_obs_flatten: true
+    RL_GETUP_PRONE_obs_history_layout: "term_major_oldest_to_newest"
+    RL_GETUP_PRONE_obs_history_init: "repeat_first_frame"
+
+    RL_GETUP_PRONE_obs_history_groups: [
+      "motion_joint_pos+motion_joint_vel",
+      "motion_anchor_ori_b",
+      "base_projected_gravity_b",
+      "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b",
+      "motion_torso_projected_gravity_b",
+      "omega",
+      "jit_pos",
+      "jit_vel",
+      "last_action"
+    ]
+
+    # -------------------------------------------------------------------------
+    # 动作接口与输出模式
+    # -------------------------------------------------------------------------
+    RL_GETUP_PRONE_action_dim: 23
+    RL_GETUP_PRONE_action_his_length: 1
+
+    # sim.dt=0.005，decimation=4，因此策略周期为 0.02 秒。
+    RL_GETUP_PRONE_step_dt: 0.02
+
+    # HYBRID_PRO 允许 leg_5 和 leg_6 使用不同的 Kd。
+    # leg_4、躯干使用 torque projection + 独立 motor Kd。
+    # leg_5/leg_6 的 Kd 从 RL_GETUP_PRONE_jit_kd 对应位置取得。
+    RL_GETUP_PRONE_output_mode: "HYBRID_PRO"
+    RL_GETUP_PRONE_hybrid_leg4_motor_kd: 5.0
+
+    # HYBRID_PRO 下脚踝不使用该共享值，但控制器要求保留此参数。
+    RL_GETUP_PRONE_hybrid_leg56_motor_kd: 2.0
+
+    RL_GETUP_PRONE_hybrid_torso1_motor_kd: 3.0
+    RL_GETUP_PRONE_hybrid_torso23_motor_kd: 3.0
+
+    # 将训练中的脚踝 joint-space Kd 映射到两个并联驱动器。
+    RL_GETUP_PRONE_ankle_kd_map: true
+    RL_GETUP_PRONE_ankle_kd_mode: "ZERO_CROSS"
+    RL_GETUP_PRONE_ankle_kd_wp: 1.0
+    RL_GETUP_PRONE_ankle_kd_wr: 1.0
+    RL_GETUP_PRONE_ankle_kd_wc: 1.0
+    RL_GETUP_PRONE_ankle_kd_fb: 3.0
+
+    # -------------------------------------------------------------------------
+    # 关节参考值与增益
+    # -------------------------------------------------------------------------
+    # WBC/Pinocchio 顺序：
+    # l_leg_1..6, r_leg_1..6, torso_1..3,
+    # l_arm_1..4, r_arm_1..4
+    RL_GETUP_PRONE_default_jit_pos: [
+      -0.1965, 0.0, 0.0, 0.4630, -0.2664, 0.0,
+      -0.1965, 0.0, 0.0, 0.4630, -0.2664, 0.0,
+        0.0,    0.0, 0.0,
+        0.3,    0.0, 0.0, -0.89,
+        0.3,    0.0, 0.0, -0.89
+    ]
+
+    # 训练名义 stiffness/Kp。
+    RL_GETUP_PRONE_jit_kp: [
+      100.0, 100.0, 80.0, 100.0, 25.0, 20.0,
+      100.0, 100.0, 80.0, 100.0, 25.0, 20.0,
+      100.0,  80.0, 80.0,
+        30.0,  25.0, 25.0, 25.0,
+        30.0,  25.0, 25.0, 25.0
+    ]
+
+    # leg_4 和 torso 的 damping 由 hybrid_*_motor_kd 提供，
+    # 因此对应 jit_kd 置零，避免重复施加阻尼。
+    # HYBRID_PRO 会单独使用 leg_5=5.0、leg_6=0.5。
+    RL_GETUP_PRONE_jit_kd: [
+      3.0, 3.0, 2.0, 0.0, 5.0, 0.5,
+      3.0, 3.0, 2.0, 0.0, 5.0, 0.5,
+      0.0, 0.0, 0.0,
+      2.0, 2.0, 2.0, 2.0,
+      2.0, 2.0, 2.0, 2.0
+    ]
+
+    # -------------------------------------------------------------------------
+    # 观测项
+    # -------------------------------------------------------------------------
+    RL_GETUP_PRONE_obs_terms: [
+      "motion_joint_pos",
+      "motion_joint_vel",
+      "motion_anchor_ori_b",
+      "base_projected_gravity_b",
+      "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b",
+      "motion_torso_projected_gravity_b",
+      "omega",
+      "jit_pos",
+      "jit_vel",
+      "last_action"
+    ]
+
+    # 顺序：[pitch/leg_5, roll/leg_6]。
+    # 训练中左右腿 leg_5、leg_6 的速度观测全部乘以零。
+    RL_GETUP_PRONE_ankle_vel_mask: [true, true]
+
+    RL_GETUP_PRONE_obs_term_dims: [
+      23, 23, 6,
+      3, 3, 3, 3,
+      3, 23, 23, 23
+    ]
+
+    RL_GETUP_PRONE_obs_cfg:
+      motion_joint_pos:
+        {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_joint_vel:
+        {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_anchor_ori_b:
+        {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      base_projected_gravity_b:
+        {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_base_projected_gravity_b:
+        {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      torso_projected_gravity_b:
+        {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_torso_projected_gravity_b:
+        {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      omega:
+        {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_pos:
+        {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_vel:
+        {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      last_action:
+        {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+
+    # -------------------------------------------------------------------------
+    # 动作配置与逐关节缩放
+    # -------------------------------------------------------------------------
+    RL_GETUP_PRONE_action_cfg:
+      jit_pos:
+        {clip_range: [-8.0, 8.0]}
+
+    # q_target = default_jit_pos + action * act_scale
+    RL_GETUP_PRONE_act_scales: [
+      0.325000, 0.325000, 0.281250, 0.325000, 0.250000, 0.250000,
+      0.325000, 0.325000, 0.281250, 0.325000, 0.250000, 0.250000,
+      0.249375, 0.234375, 0.234375,
+      0.583333, 0.360000, 0.360000, 0.360000,
+      0.583333, 0.360000, 0.360000, 0.360000
+    ]

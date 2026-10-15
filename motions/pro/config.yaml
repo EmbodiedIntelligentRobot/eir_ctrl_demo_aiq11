@@ -1,0 +1,26 @@
+robot: pro
+service: /motion_cmd
+blend_seconds: 1.0
+recovery_warning_seconds: 0.5
+recovery_inferences: 2
+dt_cap: 0.01
+# Observation suppression applies to the entire group when any member is owned.
+# Offline position PD uses robot READY gains; motor damping/torque limits remain unchanged.
+groups:
+  - joints: [torso_1, torso_2, torso_3]
+    observation_position: [0, 0, 0]
+    max_velocity: 1.0
+  - joints: [l_arm_1, l_arm_2, l_arm_3, l_arm_4, l_arm_5, l_arm_6, l_arm_7]
+    observation_position: [0.3, 0, 0, -0.89, 0, 0, 0]
+    max_velocity: 2.5
+  - joints: [r_arm_1, r_arm_2, r_arm_3, r_arm_4, r_arm_5, r_arm_6, r_arm_7]
+    observation_position: [0.3, 0, 0, -0.89, 0, 0, 0]
+    max_velocity: 2.5
+  - joints: [neck_1, neck_2, neck_3]
+    observation_position: [0, 0, 0]
+    max_velocity: 0.5
+motions:
+  - {cmd: 11, name: 奥特曼, file: aoteman.csv}
+  - {cmd: 12, name: 欢呼, file: huanhu.csv}
+  - {cmd: 13, name: 加油, file: jiayou.csv}
+  - {cmd: 14, name: 再见, file: zaijian.csv}

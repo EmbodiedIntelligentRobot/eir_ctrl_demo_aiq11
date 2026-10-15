@@ -1,0 +1,130 @@
+/**/main_controller:
+  ros__parameters:
+    # Generated from saved AIQ11 training snapshots; policy is TorchScript.
+    # task: aiq11_pro_female_walk
+    # robot model: aiq11_pro_simplified.xml
+    # run: 2026-10-12_22-34-39_female_standing_foot_motion_refine_local
+    # checkpoint: model_74994.pt
+    # actor: 780 -> 512 -> 256 -> 128 -> 23, ELU, bounded to [-100.0, 100.0]
+    # empirical_normalization: false
+    # omega/projected_g reference frame: base_link; history: oldest to newest.
+    RL_WALK_AMP_HUMANOID_profile_id: "walk_amp_humanoid"
+    RL_WALK_AMP_HUMANOID_policy_joint_layout: "aiq11_23"
+    RL_WALK_AMP_HUMANOID_policy_path: "config/amp/walk_amp_humanoid/pro/aiq11pro_female_standing_foot_motion_refine_local_74994.pt"
+    RL_WALK_AMP_HUMANOID_obs_dim: 78
+    RL_WALK_AMP_HUMANOID_obs_his_length: 10
+    RL_WALK_AMP_HUMANOID_obs_flatten: true
+    RL_WALK_AMP_HUMANOID_action_dim: 23
+    RL_WALK_AMP_HUMANOID_action_his_length: 1
+    RL_WALK_AMP_HUMANOID_step_dt: 0.02
+    RL_WALK_AMP_HUMANOID_enable_preemptive_infer: true
+
+    # Controller settings below follow the supplied template, not PPO parameters.
+    RL_WALK_AMP_HUMANOID_motion_blend_duration: 1.0
+    RL_WALK_AMP_HUMANOID_motion_blend_max_dt: 0.02
+    RL_WALK_AMP_HUMANOID_motion_jrt_stale_timeout: 0.25
+    RL_WALK_AMP_HUMANOID_motion_policy_recovery_timeout: 0.5
+    RL_WALK_AMP_HUMANOID_motion_policy_recovery_inferences: 2
+    RL_WALK_AMP_HUMANOID_motion_arm_max_velocity: 1000.0
+    RL_WALK_AMP_HUMANOID_motion_torso_max_velocity: 1000.0
+
+    # Envelope includes mixed, pure-lateral and pure-turn commands at this stage.
+    RL_WALK_AMP_HUMANOID_cmd_vel_clip:
+      vx: [-0.8, 1.4]
+      vy: [-0.55, 0.55]
+      wz: [-1.8, 1.8]
+    RL_WALK_AMP_HUMANOID_max_lin_accel: 1000.0
+    RL_WALK_AMP_HUMANOID_max_lin_decel: 1000.0
+    RL_WALK_AMP_HUMANOID_max_ang_accel: 1000.0
+    RL_WALK_AMP_HUMANOID_max_ang_decel: 1000.0
+
+    RL_WALK_AMP_HUMANOID_output_mode: "HYBRID_MODE"
+    # Keep all training damping in jit_kd; do not add a second motor Kd.
+    RL_WALK_AMP_HUMANOID_hybrid_leg4_motor_kd: 0.0
+    RL_WALK_AMP_HUMANOID_hybrid_leg56_motor_kd: 0.0
+    RL_WALK_AMP_HUMANOID_hybrid_torso1_motor_kd: 0.0
+    RL_WALK_AMP_HUMANOID_hybrid_torso23_motor_kd: 0.0
+    RL_WALK_AMP_HUMANOID_ankle_kd_map: false
+    RL_WALK_AMP_HUMANOID_ankle_kd_mode: "SOFT_QP"
+    RL_WALK_AMP_HUMANOID_ankle_kd_wp: 1.0
+    RL_WALK_AMP_HUMANOID_ankle_kd_wr: 1.0
+    RL_WALK_AMP_HUMANOID_ankle_kd_wc: 1.0
+    RL_WALK_AMP_HUMANOID_ankle_kd_fb: 3.0
+
+    # Joint order: left leg 6, right leg 6, torso 3, left arm 4, right arm 4.
+    RL_WALK_AMP_HUMANOID_default_jit_pos: [
+      -0.18, 0.05, 0.17, 0.44, -0.2583, 0.02781,
+      -0.18, -0.05, -0.17, 0.44, -0.2583, -0.02781,
+      0.0, 0.0, 0.0,
+      0.3, 0.0, 0.0, -0.89,
+      0.3, 0.0, 0.0, -0.89
+    ]
+    RL_WALK_AMP_HUMANOID_jit_kp: [
+      100.0, 100.0, 100.0, 150.0, 30.0, 30.0,
+      100.0, 100.0, 100.0, 150.0, 30.0, 30.0,
+      50.0, 70.0, 70.0,
+      30.0, 25.0, 25.0, 25.0,
+      30.0, 25.0, 25.0, 25.0
+    ]
+    RL_WALK_AMP_HUMANOID_jit_kd: [
+      5.0, 3.0, 2.0, 5.0, 7.0, 0.4,
+      5.0, 3.0, 2.0, 5.0, 7.0, 0.4,
+      3.0, 5.0, 5.0,
+      2.0, 2.0, 2.0, 2.0,
+      2.0, 2.0, 2.0, 2.0
+    ]
+
+    RL_WALK_AMP_HUMANOID_obs_terms: [
+      "omega", "projected_g", "vel_cmd", "jit_pos", "jit_vel", "last_action"
+    ]
+    RL_WALK_AMP_HUMANOID_obs_cfg:
+      omega: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      projected_g: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      vel_cmd: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      # Training uses raw velocities, without a low-pass filter.
+      jit_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      last_action: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      swing_ratio: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+
+    # Clip the raw action, without projecting joint-position targets.
+    RL_WALK_AMP_HUMANOID_action_cfg:
+      jit_pos: {clip_range: [-100.0, 100.0]}
+    RL_WALK_AMP_HUMANOID_act_scales: [
+      0.5, 0.5, 0.5, 0.5, 0.25, 0.25,
+      0.5, 0.5, 0.5, 0.5, 0.25, 0.25,
+      0.5, 0.5, 0.5,
+      0.2, 0.2, 0.2, 0.2,
+      0.2, 0.2, 0.2, 0.2
+    ]
+    RL_WALK_AMP_HUMANOID_arm_obs_mask: false
+    RL_WALK_AMP_HUMANOID_torso_obs_mask: false
+    # Both ankle axes: l_leg_5/6 and r_leg_5/6 (SDK indices 4,5,10,11).
+    RL_WALK_AMP_HUMANOID_ankle_vel_mask: [true, true]
+
+    RL_WALK_AMP_HUMANOID_torso_roll_rescue:
+      enable: false
+      roll_reference: 0.0
+      roll_deadband: 0.034906585
+      full_activation_roll: 0.087266463
+      kp: 0.50
+      kd: 0.06
+      position_correction_limit: 0.08
+      correction_sign: -1.0
+      lateral_command_relaxation: 0.70
+      yaw_command_relaxation: 0.35
+      minimum_gain_scale: 0.60
+    RL_WALK_AMP_HUMANOID_policy_action_mask:
+      enable: false
+      zero_joints: ["l_arm_2", "l_arm_3", "l_arm_4", "r_arm_2", "r_arm_3", "r_arm_4"]
+    RL_WALK_AMP_HUMANOID_policy_target_limits:
+      enable: false
+    # Only Pro has the extra fixed wrist/neck joints; disable for native AIQ11.
+    RL_WALK_AMP_HUMANOID_pro_neutral_hold:
+      enable: true
+      arm5_kp: 25.0
+      arm5_kd: 2.0
+      arm67_kp: 25.0
+      arm67_kd: 2.0
+      neck_kp: 20.0
+      neck_kd: 2.0

@@ -1,0 +1,22 @@
+{
+  "source_policy": "/home/ehr/ws_loop_local/learning/roboparty_train_0712/roboparty_train_lp/outputs/policy_exports/2026-10-10_08-07-31_lip_perception_latest_model_fixed_feet_push_4096_model_14500/exported/policy.pt",
+  "source_policy_sha256": "4bb55c0791795a7856ba47c6933e60513c06b13eb32ce2574bec5b91b2a763b7",
+  "deployed_policy_sha256": "4bb55c0791795a7856ba47c6933e60513c06b13eb32ce2574bec5b91b2a763b7",
+  "policy_copied_byte_for_byte": true,
+  "source_parameter_hashes_verified": true,
+  "contract_verified": true,
+  "input_shape": [
+    1,
+    5232
+  ],
+  "output_shape": [
+    1,
+    23
+  ],
+  "samples": 32,
+  "derived_onnx_sha256": "535faa70279ca1eb2f83ff3d4424cb40a92ba7f95a73d0115e0402ee91860489",
+  "onnx_max_abs_error": 1.1444091796875e-05,
+  "rtol": 0.0001,
+  "atol": 0.0001,
+  "passed": true
+}

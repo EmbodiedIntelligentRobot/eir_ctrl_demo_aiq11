@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11_pro/liedown_supine",
+  "source_model": "policy_tangxia_pro_1008.pt",
+  "source_motion": "tangxia_pro_1008.txt",
+  "robot": "pro",
+  "mode": 35,
+  "frames": 530,
+  "input": [
+    1,
+    664
+  ],
+  "output": [
+    1,
+    29
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 1.33514404296875e-05,
+  "sha256": {
+    "policy.pt": "5edf10648cfa3a62ba28e548eecdc9ac328513617666ae0ded6c30ee64b597b4",
+    "policy.onnx": "be65ca0a74c869f73eefb52f5725753d42cb668b59fbc08ccac7b36b3071217d",
+    "motion.csv": "3dbc1c6b5dda3fa2635bb3ce6a1297add91187d56cb21f3756a18d4de91320ac",
+    "source.yaml": "bca125269e3922e8dfccb0ed7906c11d975ca4aea84c73a6a50f65226fe02f6f"
+  },
+  "output_projection": "HYBRID_PRO",
+  "neck_gains": "source provides no neck gains; application tracked_kp=20, tracked_kd=2"
+}

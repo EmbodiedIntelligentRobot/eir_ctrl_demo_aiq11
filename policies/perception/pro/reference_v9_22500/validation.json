@@ -1,0 +1,27 @@
+{
+  "source_sha256": "ae9a73843d88791343e92a0de4e64b40e7d121d52c42a48f74ab4d0c16f8b51a",
+  "checkpoint_sha256": "54b2359a18afda4d6a85120416ec14e2812ea413d80a5ecb21d1f31c0eb1c958",
+  "random_cases": 64,
+  "native_observation_cases": 100,
+  "atol": 1e-05,
+  "rtol": 1e-05,
+  "onnx_max_abs": 0.0,
+  "libtorch_max_abs": 1.52587890625e-05,
+  "source_onnx_nodes_and_weights_unchanged": true,
+  "native_diagnostics": {
+    "delta_xyz_m": [
+      0.7830854393770451,
+      -0.020336605102739283,
+      0.6936133050336932
+    ],
+    "ground_elevation_change_m": -0.0004276848048903048,
+    "base_clearance_m": 0.6940409898400394,
+    "tilt_rad": 0.09038216052515852,
+    "velocity_b_m_s": [
+      0.41902915932916607,
+      -0.0011133354885834107,
+      -0.02410632084505958
+    ],
+    "reason": null
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11/liedown_prone",
+  "source_model": "policy_paxia_917.pt",
+  "source_motion": "917_new_paxia.txt",
+  "robot": "sport",
+  "mode": 36,
+  "frames": 801,
+  "input": [
+    1,
+    544
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 6.67572021484375e-06,
+  "sha256": {
+    "policy.pt": "7975c41495a63544d62fcfaaff5d61aee186db9f76255c84af2d8fbc968bff71",
+    "policy.onnx": "6759b8e8a6fc2903faadc11f786181f6f976053a2c4ccead3fec42a456028ac9",
+    "motion.csv": "6b5964b57c3c4ce34132bf8830220d8245d1d99bc1d0b166c80ee2152fa1867a",
+    "source.yaml": "31d86ff59934c781bb2e4b2b1bc82cd6407f902c76ad2857caf5bec7a530444a"
+  },
+  "output_projection": "HYBRID_MODE",
+  "neck_gains": "no neck joints"
+}

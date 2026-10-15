@@ -1,0 +1,36 @@
+{
+  "source_repository": "ehr_ros2_control",
+  "source_commit": "dffeda7b4ce914c3ba6479ecde842f184fe0ab7b",
+  "source_model": "prime_collected2/bringup/config/amp/walk_amp_humanoid/sport/policy_lhb_0717_4.pt",
+  "input": [
+    1,
+    800
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "history": "frame-major, oldest-to-newest",
+  "export": {
+    "torch": "2.11.0+cu130",
+    "onnx": "1.21.0",
+    "opset": 17,
+    "dtype": "float32"
+  },
+  "files": {
+    "policy.onnx": "e94dd9b0d0dd5b1a5ad876b3e2d35dd860f2382fb06d6503a5ce6f9be1c9c942",
+    "model_contract.yaml": "4f7703bed7395d50012d26f3508c33f30268407ca6ab3965030a5ed9f8d65066",
+    "config.yaml": "55ad248d313673219f2809103d08f87dd6ccc7334805263b09c525c1c8b90c17",
+    "policy.pt": "5667b43001822b2abf59b864c693cdb59684b9be1897bb362b92730f6076ab81",
+    "source.yaml": "f200fdda780259a7edb3e25121d3757454d53e44465b458286c4a0e4ccce9696"
+  },
+  "validation": "Model structure, export and ONNX checker only. No dynamic simulation or hardware tests.",
+  "reference_worktree_note": "Reference repository has local modifications; source model/YAML match HEAD. Controller formulas were read from the current worktree.",
+  "reference_files_sha256": {
+    "prime_locomotion/src/locomotion/humanoid_amp_controller.cpp": "62830d34e7b332d9c7e9214fa37ce241cce42568798adabee25a53e4d25f4d16",
+    "prime_locomotion/src/BaseRLController.cpp": "255dea6852bba015d8436adcb1099b9fe49c7b97ab737c7bc84bb0d137414a67",
+    "prime_wbc/config/aiq11_control_param.pm": "110434292759d54d663e69c35f6fd777b444dc914d31ecf7bd6b3ced8f5f657f",
+    "prime_collected2/bringup/config/joint_name_aiq11.yaml": "6903c62cb85f9191329a3311eef624d75ffb718f7224651c8837d392c5ee2d98",
+    "prime_collected2/bringup/config/robots/aiq11.yaml": "1eca4f30f9590af29328e7a136f88867738fa993ea2ae668dc4fd51f0324154a"
+  }
+}

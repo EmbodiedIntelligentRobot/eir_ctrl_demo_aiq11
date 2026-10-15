@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11_pro/getup",
+  "source_model": "policy_getup_1010.pt",
+  "source_motion": "getup_1010.txt",
+  "robot": "pro",
+  "mode": 37,
+  "frames": 1236,
+  "input": [
+    1,
+    664
+  ],
+  "output": [
+    1,
+    29
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 6.67572021484375e-06,
+  "sha256": {
+    "policy.pt": "e8c58c3b030f2f6b037644f0cdc3a9cb4868a17e43fb71ab8a336076a0de1770",
+    "policy.onnx": "68265ea986d092b421f51e31356a876148c4c7ee52ace40c4711415786e295b1",
+    "motion.csv": "58cab825754ef42d54b2083613b4d7a91238410254f7f27f41dfb152e914e0f3",
+    "source.yaml": "30f1d6e9f370f2f8a00993ce944fda1c077db41d7c925991facb64256398c5d3"
+  },
+  "output_projection": "HYBRID_PRO",
+  "neck_gains": "source provides no neck gains; application tracked_kp=20, tracked_kd=2"
+}

@@ -1,0 +1,40 @@
+{
+  "source_archive": "运动版舞蹈&不带假爪交互版舞蹈.zip",
+  "archive_sha256": "4697ea411b4e394dff6bfa6c94842b3af52e8b45c5300be33e49c3654174a5e8",
+  "source_directory": "mimic_a/pro",
+  "source_model": "policy_lalacao_pro_909.pt",
+  "source_motion": "lalacao_pro_909.txt",
+  "robot": "pro",
+  "mode": 30,
+  "frames": 5724,
+  "input": [
+    1,
+    664
+  ],
+  "output": [
+    1,
+    29
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 2.47955322265625e-05,
+  "sha256": {
+    "policy_fist.pt": "2d87e64d762208ba7d1a874091c403d142c27adf0322342ada4a74d1200551b3",
+    "policy_fist.onnx": "bdfa43f4c119746588d9ba31e25161f008fcb4d4b33dd99c6a266054749fc0af",
+    "motion_fist.csv": "f8d689d83fa4b9a4fbeb152ecb2924573cf31e29ef28e9b3a12801a9c60ed6fd",
+    "source_fist.yaml": "a17154092f6adfe2a9c38f0ec1ac4da138dc9df6ef2b90be68f4410b648a4670"
+  },
+  "resource_changes": {
+    "source.yaml": "replaced",
+    "policy.pt": "identical_skipped",
+    "motion.csv": "identical_skipped",
+    "policy.onnx": "identical_model_reused"
+  },
+  "config_changed_fields": [
+    "kp",
+    "output_mode"
+  ],
+  "neck_gains": "source has no neck gains; existing tracked_kp=20/kd=2",
+  "conversion": "Source numeric values preserved; gravity clips follow normalized gravity; gain ratios=1, shared policy transition=0.15s; history initialized with first frame.",
+  "variant": "fist"
+}

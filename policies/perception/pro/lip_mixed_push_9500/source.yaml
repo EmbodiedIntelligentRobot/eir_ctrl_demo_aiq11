@@ -1,0 +1,9 @@
+source_export: outputs/policy_exports/lip_perception_mixed_push_4096_model_9500
+source_manifest: export_manifest.json
+source_env: deployment_env.yaml
+backend_for_test: libtorch
+execution_for_test: combined
+model_sha256: 959f451a1a292bec1fcf41565332c9b898f8f67730f5a3acaf44b744f9a32e11
+checkpoint_sha256: a76fb424c98c9c0c16792f32eb854a1f57f32f0b937c8e36b57ebada0fd41cf9
+joint_pd_matches_source: true
+additional_motor_damping: false

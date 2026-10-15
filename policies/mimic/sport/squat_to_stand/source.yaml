@@ -1,0 +1,126 @@
+/**/main_controller:
+  ros__parameters:
+    # -------------------------------------------------------------------------
+    # 策略与动作资源
+    # -------------------------------------------------------------------------
+    RL_SQUAT_TO_STAND_profile_id: "squat_to_stand"
+    RL_SQUAT_TO_STAND_configuration_required: true
+    RL_SQUAT_TO_STAND_policy_joint_layout: "aiq11_23"
+
+    RL_SQUAT_TO_STAND_policy_path: "config/mimic/squat_to_stand/sport/policy_dunqi_916.pt"
+    RL_SQUAT_TO_STAND_motion_file: "config/mimic/squat_to_stand/sport/dunqi_916.txt"
+
+
+    RL_SQUAT_TO_STAND_ankle_vel_mask: [true, true]
+    RL_SQUAT_TO_STAND_output_mode: "HYBRID_MODE"
+    RL_SQUAT_TO_STAND_hybrid_leg4_motor_kd: 5.0
+    RL_SQUAT_TO_STAND_hybrid_leg56_motor_kd: 2.0
+    RL_SQUAT_TO_STAND_hybrid_torso1_motor_kd: 3.0
+    RL_SQUAT_TO_STAND_hybrid_torso23_motor_kd: 3.0
+    RL_SQUAT_TO_STAND_jit_kd: [
+      3.0, 3.0, 2.0, 0.0, 0.0, 0.0,
+      3.0, 3.0, 2.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 0.0,
+      2.0, 2.0, 2.0, 2.0,
+      2.0, 2.0, 2.0, 2.0
+    ]
+
+    # -------------------------------------------------------------------------
+    # 回放与推理时序
+    # -------------------------------------------------------------------------
+    RL_SQUAT_TO_STAND_motion_loop: false
+    RL_SQUAT_TO_STAND_warm_up_steps: 5
+    RL_SQUAT_TO_STAND_first_frame_hold_sec: 0.0
+    RL_SQUAT_TO_STAND_gain_transition:
+      duration: 0.15
+      kp_start_ratio: 1.0
+      kd_start_ratio: 1.0
+    RL_SQUAT_TO_STAND_ankle_hold_before_history: true
+
+    # -------------------------------------------------------------------------
+    # 观测接口与历史
+    # -------------------------------------------------------------------------
+    # Single frame: 136, four-frame term-major history: 544.
+    RL_SQUAT_TO_STAND_obs_dim: 136
+    RL_SQUAT_TO_STAND_policy_input_dim: 544
+    RL_SQUAT_TO_STAND_obs_his_length: 4
+    RL_SQUAT_TO_STAND_obs_flatten: true
+    RL_SQUAT_TO_STAND_obs_history_layout: "term_major_oldest_to_newest"
+    RL_SQUAT_TO_STAND_obs_history_init: "repeat_first_frame"
+
+    RL_SQUAT_TO_STAND_obs_history_groups: [
+      "motion_joint_pos+motion_joint_vel",
+      "motion_anchor_ori_b",
+      "base_projected_gravity_b",
+      "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b",
+      "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+
+    # -------------------------------------------------------------------------
+    # 动作接口与输出模式
+    # -------------------------------------------------------------------------
+    RL_SQUAT_TO_STAND_action_dim: 23
+    RL_SQUAT_TO_STAND_action_his_length: 1
+
+    RL_SQUAT_TO_STAND_step_dt: 0.02
+
+    # -------------------------------------------------------------------------
+    # 关节参考值与增益
+    # -------------------------------------------------------------------------
+    # WBC/Pinocchio 顺序: 双腿 12、躯干 3、左臂 4、右臂 4。
+    RL_SQUAT_TO_STAND_default_jit_pos: [
+      -0.1965, 0.0, 0.0, 0.463, -0.2664, 0.0,
+      -0.1965, 0.0, 0.0, 0.463, -0.2664, 0.0,
+      0.0, 0.0, 0.0,
+      0.3, 0.0, 0.0, -0.89,
+      0.3, 0.0, 0.0, -0.89
+    ]
+
+
+    RL_SQUAT_TO_STAND_jit_kp: [
+      100.0, 100.0, 80.0, 100.0, 25.0, 20.0,
+      100.0, 100.0, 80.0, 100.0, 25.0, 20.0,
+      100.0, 95.0, 80.0,
+      30.0, 25.0, 25.0, 25.0,
+      30.0, 25.0, 25.0, 25.0
+    ]
+
+    # -------------------------------------------------------------------------
+    # 观测项
+    # -------------------------------------------------------------------------
+    RL_SQUAT_TO_STAND_obs_terms: [
+      "motion_joint_pos", "motion_joint_vel", "motion_anchor_ori_b",
+      "base_projected_gravity_b", "motion_base_projected_gravity_b",
+      "torso_projected_gravity_b", "motion_torso_projected_gravity_b",
+      "omega", "jit_pos", "jit_vel", "last_action"
+    ]
+    RL_SQUAT_TO_STAND_obs_term_dims: [23, 23, 6, 3, 3, 3, 3, 3, 23, 23, 23]
+
+    RL_SQUAT_TO_STAND_obs_cfg:
+      motion_joint_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_joint_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      motion_anchor_ori_b: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_base_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      motion_torso_projected_gravity_b: {clip_range: [-1.0, 1.0], obs_scale: 1.0}
+      omega: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_pos: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      jit_vel: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+      last_action: {clip_range: [-100.0, 100.0], obs_scale: 1.0}
+
+    # -------------------------------------------------------------------------
+    # 动作配置与逐关节缩放
+    # -------------------------------------------------------------------------
+    RL_SQUAT_TO_STAND_action_cfg:
+      jit_pos: {clip_range: [-8.0, 8.0]}
+
+    RL_SQUAT_TO_STAND_act_scales: [
+      0.325, 0.325, 0.28125, 0.325, 0.250, 0.250,
+      0.325, 0.325, 0.28125, 0.325, 0.250, 0.250,
+      0.249375, 0.234375, 0.234375,
+      0.583333, 0.360, 0.360, 0.360,
+      0.583333, 0.360, 0.360, 0.360
+    ]

@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11/liedown_supine",
+  "source_model": "policy_tangxia_1013.pt",
+  "source_motion": "tangxia_1013.txt",
+  "robot": "sport",
+  "mode": 35,
+  "frames": 530,
+  "input": [
+    1,
+    544
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 5.7220458984375e-06,
+  "sha256": {
+    "policy.pt": "ef81d1bbf2d4070d2cbb15b1bfb43e754d0e7b8f40b9c7a17b0355210eb31c2c",
+    "policy.onnx": "8bfffcba4b84a54ece4c9ea49ce8d21ff65c11b5693d4780543252aa17ad360c",
+    "motion.csv": "0748352ee5764a83e3c58bd57bf10d0b8b339e027da039a8867e14985e6d8a93",
+    "source.yaml": "1ef4a4dc25c7922371bea944f3a6733bda0199b287a8bd12539877a6a5e6ba8f"
+  },
+  "output_projection": "HYBRID_MODE",
+  "neck_gains": "no neck joints"
+}

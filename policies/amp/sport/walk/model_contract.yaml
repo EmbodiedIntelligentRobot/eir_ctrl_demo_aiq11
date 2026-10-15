@@ -1,0 +1,109 @@
+robot: sport
+kind: amp_humanoid_walk
+joints:
+- l_leg_1
+- l_leg_2
+- l_leg_3
+- l_leg_4
+- l_leg_5
+- l_leg_6
+- r_leg_1
+- r_leg_2
+- r_leg_3
+- r_leg_4
+- r_leg_5
+- r_leg_6
+- torso_1
+- torso_2
+- torso_3
+- l_arm_1
+- l_arm_2
+- l_arm_3
+- l_arm_4
+- r_arm_1
+- r_arm_2
+- r_arm_3
+- r_arm_4
+defaults:
+- -0.17
+- 0.0
+- 0.0
+- 0.4
+- -0.25
+- 0.0
+- -0.17
+- 0.0
+- 0.0
+- 0.4
+- -0.25
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+scales:
+- 0.5
+- 0.5
+- 0.5
+- 0.5
+- 0.25
+- 0.25
+- 0.5
+- 0.5
+- 0.5
+- 0.5
+- 0.25
+- 0.25
+- 0.5
+- 0.5
+- 0.5
+- 0.2
+- 0.2
+- 0.2
+- 0.2
+- 0.2
+- 0.2
+- 0.2
+- 0.2
+history: 10
+velocity_mask: []
+observation_clip: 100.0
+action_clip: 20.0
+step_seconds: 0.01
+amp_gait:
+  term_clips:
+  - 20.0
+  - 1.0
+  - 5.0
+  - 5.0
+  - 20.0
+  - 100.0
+  - 100.0
+  velocity_filter_hz: 10.0
+  velocity_reference: 3.0
+  yaw_weight: 0.5
+  swing_min: 0.3
+  swing_max: 0.4
+  double_support_min: 0.04
+  double_support_max: 0.12
+  command_threshold: 0.05
+  direction_threshold: 0.05
+  stop_threshold: 0.01
+  linear_accel: 1.5
+  linear_decel: 1.0
+  angular_accel: 2.0
+  angular_decel: 1.5
+  extra_supports: 1
+  default_left: true
+models:
+  libtorch:
+    sha256: 5667b43001822b2abf59b864c693cdb59684b9be1897bb362b92730f6076ab81
+  onnx:
+    sha256: e94dd9b0d0dd5b1a5ad876b3e2d35dd860f2382fb06d6503a5ce6f9be1c9c942

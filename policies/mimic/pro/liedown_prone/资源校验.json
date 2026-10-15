@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11_pro/liedown_prone",
+  "source_model": "policy_paxia_pro_1010.pt",
+  "source_motion": "paxia_pro_1010.txt",
+  "robot": "pro",
+  "mode": 36,
+  "frames": 865,
+  "input": [
+    1,
+    664
+  ],
+  "output": [
+    1,
+    29
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 1.1444091796875e-05,
+  "sha256": {
+    "policy.pt": "04c552030dbf2f1449245698903bd376bf51fce7b3036785390555b606b925d2",
+    "policy.onnx": "7c6b7167ef31cf5f8e4610c4c5bd3a688c5daf2716ca3672d3c42ffc066c41d5",
+    "motion.csv": "8b4f38716c916539b42ce1c23bb7843369b4aa221c851bfab182ea4a6bf08fd9",
+    "source.yaml": "f3551be8295ea57d25d3594d69a5d4ef11201d658015c795006ac7b381504246"
+  },
+  "output_projection": "HYBRID_PRO",
+  "neck_gains": "source provides no neck gains; application tracked_kp=20, tracked_kd=2"
+}

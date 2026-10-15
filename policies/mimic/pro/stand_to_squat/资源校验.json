@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11_pro/stand_to_squat",
+  "source_model": "policy_xiadun_pro_918.pt",
+  "source_motion": "xiadun_pro_918.txt",
+  "robot": "pro",
+  "mode": 42,
+  "frames": 282,
+  "input": [
+    1,
+    664
+  ],
+  "output": [
+    1,
+    29
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 2.6702880859375e-05,
+  "sha256": {
+    "policy.pt": "8ae75cda2a6ada69a44672f62a3e1b771e9fe91d1e86ae8cf9b47225e8dd35ef",
+    "policy.onnx": "a37ab01bfd956e6699abb05b36f1e89fa2775052e9d50bf1ca2191916e816e7c",
+    "motion.csv": "cdd6cba2a72bebe3b72595d92089733ff02362b834ca9677e13bd4a4515d9e6a",
+    "source.yaml": "e1057354757c45af5af4c8114bbd1aec292d2196ef2dc8cc64750335147a1eb4"
+  },
+  "output_projection": "HYBRID_MODE",
+  "neck_gains": "source provides no neck gains; application tracked_kp=20, tracked_kd=2"
+}

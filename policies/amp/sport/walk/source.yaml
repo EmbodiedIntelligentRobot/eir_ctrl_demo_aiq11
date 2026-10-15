@@ -1,0 +1,198 @@
+/**/main_controller:
+  ros__parameters:
+    RL_WALK_AMP_HUMANOID_profile_id: "walk_amp_humanoid"
+    ###################### AMP RL Controller Parameters ######################
+    # 与本仓库 aiq11 task 对齐:
+    #   env: humanoid_amp/legged_lab/envs/aiq11/walk_cfg.py
+    #   robot: humanoid_amp/legged_lab/assets/aiq11/aiq11.py
+    #   run: humanoid_amp/logs/aiq11/2026-06-03_10-43-04
+    #
+    # Actor 观测每帧 80 维:
+    #   omega(3) + projected_g(3) + vel_cmd(3)
+    #   + jit_pos(23) + jit_vel(23) + last_action(23) + swing_ratio(2)
+    # 训练使用 actor_obs_history_length=10，所以 policy 输入为 800 维。
+    # 动作: 23 维关节位置增量，SDK 顺序:
+    #   [0-5]=l_leg, [6-11]=r_leg, [12-14]=torso,
+    #   [15-18]=l_arm, [19-22]=r_arm
+    RL_WALK_AMP_HUMANOID_policy_joint_layout: "aiq11_23"
+    # human data
+    RL_WALK_AMP_HUMANOID_policy_path: "config/amp/walk_amp_humanoid/sport/policy_lhb_0717_4.pt"
+    RL_WALK_AMP_HUMANOID_obs_dim: 80
+    RL_WALK_AMP_HUMANOID_obs_his_length: 10
+    RL_WALK_AMP_HUMANOID_obs_flatten: true
+
+    RL_WALK_AMP_HUMANOID_action_dim: 23
+    RL_WALK_AMP_HUMANOID_action_his_length: 1
+
+    # IsaacLab AIQ11WalkFlatEnvCfg: sim.dt=0.005, decimation=2.
+    RL_WALK_AMP_HUMANOID_step_dt: 0.01
+    RL_WALK_AMP_HUMANOID_enable_preemptive_infer: true
+
+    # Motion Stream / Policy 上身控制权平滑过渡
+    RL_WALK_AMP_HUMANOID_motion_blend_duration: 1.0
+    RL_WALK_AMP_HUMANOID_motion_blend_max_dt: 0.01
+    RL_WALK_AMP_HUMANOID_motion_jrt_stale_timeout: 0.25
+    RL_WALK_AMP_HUMANOID_motion_policy_recovery_timeout: 0.5
+    RL_WALK_AMP_HUMANOID_motion_policy_recovery_inferences: 2
+    RL_WALK_AMP_HUMANOID_motion_arm_max_velocity: 1000.0
+    RL_WALK_AMP_HUMANOID_motion_torso_max_velocity: 1000.0
+
+    # 当前策略的部署步态参数。
+    RL_WALK_AMP_HUMANOID_vel_ref: 3.0
+    RL_WALK_AMP_HUMANOID_swing_period_max: 0.40
+    RL_WALK_AMP_HUMANOID_swing_period_min: 0.30
+    RL_WALK_AMP_HUMANOID_ds_time_max: 0.12
+    RL_WALK_AMP_HUMANOID_ds_time_min: 0.04
+    RL_WALK_AMP_HUMANOID_extra_cycles_on_stop: 1  # 停止时多走1个周期，确保稳定进入双支撑
+
+    # 与训练命令范围一致，三轴分别支持非对称上下限。
+    RL_WALK_AMP_HUMANOID_cmd_vel_clip:
+      vx: [-1.0, 1.0]
+      vy: [-0.6, 0.6]
+      wz: [-1.0, 1.0]
+
+    # 输出模式: POS_MODE / TORQUE_MODE / HYBRID_MODE / HYBRID_PRO
+    RL_WALK_AMP_HUMANOID_output_mode: "HYBRID_MODE"
+    RL_WALK_AMP_HUMANOID_hybrid_leg4_motor_kd: 5.0
+    RL_WALK_AMP_HUMANOID_hybrid_leg56_motor_kd: 3.0
+    RL_WALK_AMP_HUMANOID_hybrid_torso1_motor_kd: 3.0
+    RL_WALK_AMP_HUMANOID_hybrid_torso23_motor_kd: 5.0
+
+    # 当前使用 HYBRID_MODE，因此踝 Kd 映射保持关闭；参数保留供切换
+    # HYBRID_PRO 时直接启用。
+    RL_WALK_AMP_HUMANOID_ankle_kd_map: false
+    RL_WALK_AMP_HUMANOID_ankle_kd_mode: "ZERO_CROSS"
+    RL_WALK_AMP_HUMANOID_ankle_kd_wp: 1.0
+    RL_WALK_AMP_HUMANOID_ankle_kd_wr: 1.0
+    RL_WALK_AMP_HUMANOID_ankle_kd_wc: 1.0
+    RL_WALK_AMP_HUMANOID_ankle_kd_fb: 3.0
+
+    # 默认关节角 (rad), 与 AIQ11_CFG.init_state.joint_pos 和 actor obs 的 SDK 顺序一致。
+    RL_WALK_AMP_HUMANOID_default_jit_pos: [
+      # 左腿 (6): hip_pitch, hip_roll, hip_yaw, knee, ankle_pitch, ankle_roll
+      -0.17, 0.0, 0.0, 0.4, -0.25, 0.0,
+      # 右腿 (6)
+      -0.17, 0.0, 0.0, 0.4, -0.25, 0.0,
+      # 躯干 (3)
+      0.0, 0.0, 0.0,
+      # 左臂 (4)
+      0.0, 0.0, 0.0, 0.0,
+      # 右臂 (4)
+      0.0, 0.0, 0.0, 0.0
+    ]
+
+    # 关节 PD: 与 AIQ11_CFG 隐式执行器 stiffness/damping 对齐，SDK 顺序。
+    RL_WALK_AMP_HUMANOID_jit_kp: [
+      # 左腿 (6): leg_1,2,3,4 / leg_5,6
+      100.0, 100.0, 100.0, 150.0, 30.0, 30.0,
+      # 右腿 (6)
+      100.0, 100.0, 100.0, 150.0, 30.0, 30.0,
+      # 躯干 (3)
+      50.0, 70.0, 70.0,
+      # 左臂 (4)
+      30.0, 25.0, 25.0, 25.0,
+      # 右臂 (4)
+      30.0, 25.0, 25.0, 25.0
+    ]
+
+    RL_WALK_AMP_HUMANOID_jit_kd: [
+      # 左腿 (6)
+      3.0, 3.0, 2.0, 0.0, 0.0, 0.0,
+      # 右腿 (6)
+      3.0, 3.0, 2.0, 0.0, 0.0, 0.0,
+      # 躯干 (3): torso_1 / torso_2,3
+      0.0, 0.0, 0.0,
+      # 左臂 (4)
+      2.0, 2.0, 2.0, 2.0,
+      # 右臂 (4)
+      2.0, 2.0, 2.0, 2.0
+    ]
+
+    ## OBSERVATION TERMS ##
+    RL_WALK_AMP_HUMANOID_obs_terms: [
+      "omega",
+      "projected_g",
+      "vel_cmd",
+      "jit_pos",
+      "jit_vel",
+      "last_action",
+      "swing_ratio"
+    ]
+
+    RL_WALK_AMP_HUMANOID_obs_cfg:
+      omega:
+        clip_range: [-20.0, 20.0]
+        obs_scale: 1.0
+      projected_g:
+        clip_range: [-1.0, 1.0]
+        obs_scale: 1.0
+      vel_cmd:
+        clip_range: [-5.0, 5.0]
+        obs_scale: 1.0
+      jit_pos:
+        clip_range: [-5.0, 5.0]
+        obs_scale: 1.0
+      jit_vel:
+        clip_range: [-20.0, 20.0]
+        obs_scale: 1.0
+        fil_gain: [10.0, 100.0]
+      last_action:
+        clip_range: [-100.0, 100.0]
+        obs_scale: 1.0
+      swing_ratio:
+        clip_range: [-100.0, 100.0]
+        obs_scale: 1.0
+
+    ## ACTION TERMS ##
+    RL_WALK_AMP_HUMANOID_action_cfg:
+      jit_pos:
+        clip_range: [-20.0, 20.0]
+        # fil_gain: [20.0, 50.0]
+
+    ## ACTION SCALES (23 joints, uniform; AIQ11WalkFlatEnvCfg.robot.action_scale=0.5) ##
+    RL_WALK_AMP_HUMANOID_act_scales: [
+      0.5, 0.5, 0.5, 0.5, 0.25, 0.25,
+      0.5, 0.5, 0.5, 0.5, 0.25, 0.25,
+      0.5, 0.5, 0.5,
+      0.2, 0.2, 0.2, 0.2,
+      0.2, 0.2, 0.2, 0.2
+    ]
+
+    ## OBSERVATION MASK ##
+    # true 保留策略观测；false 允许 Motion Stream 接管后屏蔽对应观测。
+    RL_WALK_AMP_HUMANOID_arm_obs_mask: false
+    RL_WALK_AMP_HUMANOID_torso_obs_mask: false
+    # 顺序: [pitch/leg_5, roll/leg_6]；false 表示保留该速度观测。
+    RL_WALK_AMP_HUMANOID_ankle_vel_mask: [false, false]
+
+    # -------------------------------------------------------------------------
+    # 训练侧附加功能（均默认关闭）
+    # -------------------------------------------------------------------------
+    RL_WALK_AMP_HUMANOID_torso_roll_rescue:
+      enable: false
+      roll_reference: 0.0
+      roll_deadband: 0.034906585
+      full_activation_roll: 0.087266463
+      kp: 0.50
+      kd: 0.06
+      position_correction_limit: 0.08
+      correction_sign: -1.0
+      lateral_command_relaxation: 0.70
+      yaw_command_relaxation: 0.35
+      minimum_gain_scale: 0.60
+
+    RL_WALK_AMP_HUMANOID_policy_action_mask:
+      enable: false
+      zero_joints: [
+        "l_arm_2", "l_arm_3", "l_arm_4",
+        "r_arm_2", "r_arm_3", "r_arm_4"
+      ]
+
+    RL_WALK_AMP_HUMANOID_pro_neutral_hold:
+      enable: false
+      arm5_kp: 25.0
+      arm5_kd: 1.0
+      arm67_kp: 20.0
+      arm67_kd: 1.0
+      neck_kp: 20.0
+      neck_kd: 0.75

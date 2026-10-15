@@ -1,0 +1,12 @@
+{
+  "iteration": 9500,
+  "onnxruntime_version": "1.29.0",
+  "samples_per_graph": 21,
+  "onnx_max_absolute_error": {
+    "0-depth_encoder": 3.933906555175781e-06,
+    "actor": 2.6702880859375e-05,
+    "policy": 5.340576171875e-05
+  },
+  "download_sha256": "passed",
+  "full_vs_split": "passed"
+}

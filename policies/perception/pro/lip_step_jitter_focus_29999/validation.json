@@ -1,0 +1,19 @@
+{
+  "source_policy": "/home/ehr/ws_loop_local/learning/roboparty_train_0712/roboparty_train_lp/outputs/policy_exports/2026-10-12_02-09-25_lip_perception_step_jitter_focus_resume21000_convex_4096_model_29999/exported/policy_perception_1013_lp.pt",
+  "source_policy_sha256": "38e0363d64892d21e99fbdc5439839fe5ea563c944e46b9d4360756a8a78ef01",
+  "deployed_policy_sha256": "38e0363d64892d21e99fbdc5439839fe5ea563c944e46b9d4360756a8a78ef01",
+  "policy_copied_byte_for_byte": true,
+  "input_shape": [
+    1,
+    5232
+  ],
+  "output_shape": [
+    1,
+    23
+  ],
+  "samples": 64,
+  "onnx_max_abs_error": 2.09808349609375e-05,
+  "rtol": 0.0001,
+  "atol": 0.0001,
+  "passed": true
+}

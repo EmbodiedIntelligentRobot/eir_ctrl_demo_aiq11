@@ -1,0 +1,85 @@
+flight_recorder: flight_recorder.yaml
+# Experimental SPORT: basic simulation checked; lateral/heading tracking needs review.
+robot: robots/sport.yaml
+policies:
+  28: ../policies/amp/sport/walk/config.yaml
+inference:
+  backend: onnx
+  threads: 1
+  warmup_steps: 10
+runtime:
+  backend: simulation
+  model: ../../../sdk/share/eir_mujoco/aiq11_sport/model/urdf/aiq11.xml
+  headless: false
+  suspend: true
+  release_after_ready: true
+  damping_kd: 5.0
+timing:
+  policy_transition_seconds: 0.15
+  control_hz: 500.0
+  io_hz: 500.0
+  inference_hz: 100.0
+  ros_hz: 50.0
+  feedback_timeout: 0.1
+  inference_timeout: 0.1
+  first_inference_timeout: 0.2
+  command_timeout: 0.1
+  velocity_timeout: 0.2
+  request_timeout: 0.5
+  limit_warning_period: 2.0
+threads:
+  control_cpu: -1
+  control_priority: 0
+  inference_cpu: -1
+remote:
+  gui: true
+  source: external
+  velocity_topic: /loco_velocity_cmd
+  mode_service: /mode_switch
+  raw_topic: /hw/remote_state
+  sbus:
+    minimum: 282
+    center: 1002
+    maximum: 1722
+    deadband: 0.05
+    axes:
+    - 2
+    - 1
+    - 0
+    axis_signs:
+    - 1.0
+    - -1.0
+    - -1.0
+    axis_scales:
+    - 1.0
+    - 0.6
+    - 1.0
+    shortcuts:
+    - mode: 1
+      channels:
+      - 5
+      - 6
+      values:
+      - 1722
+      - 1722
+    - mode: 2
+      channels:
+      - 5
+      - 9
+      values:
+      - 282
+      - 1722
+    - mode: 28
+      channels:
+      - 5
+      - 8
+      values:
+      - 282
+      - 1722
+debug:
+  enabled: false
+  rate_hz: 20.0
+  runtime_topic: debug/runtime
+  joint_topic: debug/joint
+  motor_topic: debug/motor
+  hand_topic: debug/hand

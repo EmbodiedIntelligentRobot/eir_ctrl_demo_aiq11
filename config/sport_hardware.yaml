@@ -1,0 +1,111 @@
+flight_recorder: flight_recorder.yaml
+# SPORT hardware: requires this robot's validated aiq11-sport SDK YAML.
+# Default STILL-only until hardware acceptance; set false explicitly for authorized motion.
+still_only: true
+robot: robots/sport.yaml
+policies:
+  28: ../policies/amp/sport/walk/config.yaml
+inference:
+  backend: onnx
+  threads: 1
+  warmup_steps: 10
+runtime:
+  backend: hardware
+  hardware_config: ${AIQ11_SPORT_HARDWARE_CONFIG}
+  hand_control: false
+  # Physical JointMapping slots, converted once to SDK logical indices.
+  motor_slots:
+    l_leg_1: 17
+    l_leg_2: 18
+    l_leg_3: 19
+    l_leg_4: 20
+    l_leg_41: 21
+    l_leg_43: 22
+    r_leg_1: 23
+    r_leg_2: 24
+    r_leg_3: 25
+    r_leg_4: 26
+    r_leg_41: 27
+    r_leg_43: 28
+    torso_1: 14
+    torso_31: 15
+    torso_33: 16
+    l_arm_1: 0
+    l_arm_2: 1
+    l_arm_3: 2
+    l_arm_4: 3
+    r_arm_1: 7
+    r_arm_2: 8
+    r_arm_3: 9
+    r_arm_4: 10
+  encoder_names: [torso_3, torso_2]
+  damping_kd: 5.0
+timing:
+  policy_transition_seconds: 0.15
+  control_hz: 500.0
+  io_hz: 500.0
+  inference_hz: 100.0
+  ros_hz: 50.0
+  feedback_timeout: 0.1
+  inference_timeout: 0.1
+  first_inference_timeout: 0.2
+  command_timeout: 0.1
+  velocity_timeout: 0.2
+  request_timeout: 0.5
+  limit_warning_period: 2.0
+threads:
+  control_cpu: -1
+  control_priority: 0
+  inference_cpu: -1
+remote:
+  gui: false
+  source: external
+  velocity_topic: /loco_velocity_cmd
+  mode_service: /mode_switch
+  raw_topic: /hw/remote_state
+  sbus:
+    minimum: 282
+    center: 1002
+    maximum: 1722
+    deadband: 0.05
+    axes:
+    - 2
+    - 1
+    - 0
+    axis_signs:
+    - 1.0
+    - -1.0
+    - -1.0
+    axis_scales:
+    - 1.0
+    - 0.6
+    - 1.0
+    shortcuts:
+    - mode: 1
+      channels:
+      - 5
+      - 6
+      values:
+      - 1722
+      - 1722
+    - mode: 2
+      channels:
+      - 5
+      - 9
+      values:
+      - 282
+      - 1722
+    - mode: 28
+      channels:
+      - 5
+      - 8
+      values:
+      - 282
+      - 1722
+debug:
+  enabled: true
+  rate_hz: 20.0
+  runtime_topic: debug/runtime
+  joint_topic: debug/joint
+  motor_topic: debug/motor
+  hand_topic: debug/hand

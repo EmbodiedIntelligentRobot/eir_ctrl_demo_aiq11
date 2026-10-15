@@ -1,0 +1,29 @@
+{
+  "source_archive": "10_13_完整全部动作.zip",
+  "archive_sha256": "257bbf2434d78545fc65b12f7578d68f21655caf48cd8f268aac0165c2b2fa35",
+  "source_directory": "aiq11/getup",
+  "source_model": "policy_stand3_807.pt",
+  "source_motion": "stand3_807.txt",
+  "robot": "sport",
+  "mode": 37,
+  "frames": 461,
+  "input": [
+    1,
+    544
+  ],
+  "output": [
+    1,
+    23
+  ],
+  "opset": 17,
+  "comparison_samples": 101,
+  "max_abs_error": 5.7220458984375e-06,
+  "sha256": {
+    "policy.pt": "e5a15839e558d76ff5a947d7ba0b271ae2fe4818e29679c05cdc0130645ccbfb",
+    "policy.onnx": "0606c62ff922b24293e25ef2d2fa3cfedab9f631c9507bd21a2d58d96f317353",
+    "motion.csv": "6259117f9478cd39bc95b9990f3b5e79451e344fefee15f70d11993b0cf8adc3",
+    "source.yaml": "c6d0d62fca0941f4529072eebbc5d4e2f09ab255ad96b46cf2010dc5f920fb2e"
+  },
+  "output_projection": "HYBRID_PRO",
+  "neck_gains": "no neck joints"
+}
