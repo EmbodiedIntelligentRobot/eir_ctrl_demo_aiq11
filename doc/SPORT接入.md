@@ -1,8 +1,8 @@
 # SPORT 接入
 
-普通配置启用 **STILL、READY、AMP HUMANOID WALK**；特殊动作由 `config/sport_special_mimic.yaml` 单独启用（35/36 躺下、37/38 起身、42/43 下蹲/起立），新资源尚待闭环动态验收。已完成软件回归与双后端自动仿真检查，详细结果及未通过项见工作空间 [SPORT 自动测试报告](../../../doc/AIQ/SPORT自动测试报告.md)；尚未完成发布验收。PRO 配置、模型和策略入口保持原状。
+普通配置启用 **STILL、READY、AMP HUMANOID WALK**；特殊动作由 `config/sport_special_mimic.yaml` 单独启用（35/36 躺下、37/38 起身、42/43 下蹲/起立），新资源尚待闭环动态验收。已完成软件回归与双后端自动仿真检查，详细结果及未通过项见工作空间 [公开版验证范围](../../../doc/公共/验证记录.md)；尚未完成发布验收。PRO 配置、模型和策略入口保持原状。
 
-2026-10-14：新增 A–E 舞蹈资源与独立 `config/sport_mimic.yaml`（30–34，544→23，50 Hz），沿用同一个 MIMIC 实现和推理线程；源参数及测试边界见 [更新记录](../../../doc/AIQ/MIMIC_A至E资源更新.md)。普通 AMP 和硬件配置保持原启用集合。
+2026-10-14：新增 A–E 舞蹈资源与独立 `config/sport_mimic.yaml`（30–34，544→23，50 Hz），沿用同一个 MIMIC 实现和推理线程；源参数及测试边界见 [公开版使用说明](../../../doc/AIQ/仿真使用.md)。普通 AMP 和硬件配置保持原启用集合。
 
 ## 资源与接口
 
@@ -31,7 +31,7 @@
 - 起步脚按侧移方向优先，其次旋转方向，否则使用 `default_left`，默认左脚；须在双向启停、扰动和停止后再起步中验收。参考工程的 WBC 质心/足端选脚不在迁移范围内；必要的并联机构解算继续调用 SDK 库。
 - 原 `extra_cycles_on_stop` 实际按接近双支撑的采样次数扣减。本配置命名为 `extra_supports`，保留原计数行为，不宣称是完整步态周期。
 - 特殊 MIMIC 使用 `policies/mimic/sport/` 的 544→23 模型、50 Hz；爬起默认不用手，可改为 `getup_prone_original`。感知、motion_stream 和手指尚未接入 SPORT；不得套用 PRO 资源。
-- 硬件入口 `config/sport_hardware.yaml` 已接入；23 轴显式映射到 SDK 32 槽位，默认 STILL 锁定，实机尚未验证。配置、构建和首测步骤见 [SPORT 硬件 SDK 接入](../../../doc/AIQ/SPORT硬件SDK接入与测试.md)。
+- 硬件入口 `config/sport_hardware.yaml` 已接入；23 轴显式映射到 SDK 32 槽位，默认 STILL 锁定，实机尚未验证。配置、构建和首测步骤见 [公开版验证范围](../../../doc/公共/验证记录.md)。
 
 ## 后续启动
 
@@ -46,7 +46,7 @@
 
 默认打开 MuJoCo 和遥控 GUI，机器人初始悬吊；仍按 STILL → READY 到位 → AMP（28），READY 到位自动释放。首次动态验收应先将 `runtime.release_after_ready` 设为 `false` 做悬吊检查，再恢复自动释放。QUERY=0、STILL=1、READY=2、AMP=28；RL→READY 禁止，未配置策略拒绝。Ctrl+C 退出并清理本应用窗口。
 
-运行与迁移边界见工作空间 [SPORT 迁移与测试](../../../doc/AIQ/SPORT迁移与测试.md)。自动测试使用无 GUI 仿真，不能替代人工动作观察或实机验收。
+运行与迁移边界见工作空间 [公开版验证范围](../../../doc/公共/验证记录.md)。自动测试使用无 GUI 仿真，不能替代人工动作观察或实机验收。
 
 ## 替换模型
 
