@@ -1,2 +1,2 @@
 # eir_ctrl_demo_aiq11
-controllerdemo偶发aiq1.
+controller demo of aiq11.
